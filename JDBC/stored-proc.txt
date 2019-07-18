@@ -1,0 +1,37 @@
+Stored Procedures
+--------------------
+
+Simple
+IN
+OUT
+
+create procedure p1 as begin
+update users set salary=5000 where id=10;
+end;
+/
+
+exec p1();
+
+
+create or replace procedure p2(sal IN number, uname IN string) as begin
+update users set salary=sal where name=uname;
+end;
+/
+
+exec p2(7777, 'John');
+
+
+create or replace procedure p3 (n1 IN number, n2 IN number, n3 OUT number) as
+begin
+n3 := n1 * n2;
+end;
+/
+
+
+set serveroutput ON;
+
+declare x1 number;
+begin
+p3(20, 15, x1);
+dbms_output.put_line(x1);
+end;

@@ -1,0 +1,1501 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 1:	>> Introduction To Web Applications
+		>> Servlets API
+		>> Steps To Create First Web Application
+-------------------------------------------------------------------------------------------------------------------------------------
+1) Static Response
+
+2) Dynamic Response
+
+
+Web Applications:
+
+
+>> Client And Server Applications:
+
+    
+>> CGI  ===> Common Gate Way Interface
+
+>> Servlets 
+
+>> JSP Technology
+
+
+CGI Vs Servlets
+
+Servlets Vs JSP's
+
+Client And Server Architecure
+
+Steps To Execute First Web Application..
+
+
+CGI Technology: 
+
+>> Common Gate Way Interface
+
+>> It Was developed based on C language and Shell Scripting 
+
+>> C is a Procedural Oriented Language.
+
+>> And It was a Process Based Technology.
+
+
+
+			[
+				Employee Management System 		||
+				==========================
+	 Request@1
+Client @1 =======>		Web Resource @1		   	||	[ WR@1 == Req@1  ] 
+									Process@1
+	  WR@1
+						Web Resource @2		   	||
+	 Request@2
+Client @2=======>		..etc			   		||	[ WR@1== Req@2   ]
+		 											Process@2
+	WR@1
+				] CGI Container		  			||
+
+>> Process is a heavy weight componenet that means it consumes
+	 more number of system resoures.
+
+>> 1000 Requests
+
+>> What about Server Internal Memory and Process?
+
+
+Servlets:
+
+	1) Servlets Are T echnology From Sun Micro Systems [ Java ]
+
+	2) Java Supports Multi Threading
+
+			[
+				Employee Management System 		||
+				==========================
+	 Request@1									==> Thread1@ Client Request@1
+Client @1 =======>		Web Resource @1		    ||	[    ] Servlet Object
+	  WR@1
+				Web Resource @2		   			||	===> Thread2@ Clinet Request@2
+	 Request@2
+Clinet @2=======>					    		||	
+	Wr@1
+				] Servlets Container	   		||
+
+
+>> Thread is a light wieght componenet and it consumes less system resources.
+Servlets Vs Jsp's:
+
+	1) If we want to develope a web application purely based on 
+		Servlets Technology then we need complete knowledge on Core Java Concepts.
+
+			Purely Jsp's: Minimum Knowledge is enough.
+
+	2) Servlets Are very good at the time pickuping the request 
+		and processing the request.
+
+		        Jsp's: Delivering The Response With Look and Feel
+
+	3) In Servlets There are no separate tags for Presentation
+		 logic and Business logic. 
+
+			Jsp's: We are having seperate tags for 
+ 			presentation logic and separate tags for business logic.
+
+	4) In Servlets for any modification in the code, 
+		we need re compilation and re deploying the servlet.
+
+			But Jsp's are Said to be auto compiled 
+			and auto loaded technology.
+
+	5) MVC - Design Pattren
+
+		M - Model	====> Core Java's, DAO, VO, BO etc..
+
+		V - View	===> Jsp's
+
+		C - Controller	===> Servlets
+
+		Struts 1.X ==> ActionServlet ===> Controller
+			       JSP Pages     ===> View
+
+		Struts 2.X ==> FilterDispatcher ==> Controller
+				JSP Pages 	===> View
+
+
+Web Applications:
+
+	1) Client And Server Architecture
+
+		>> Client
+
+		>> Protocol
+
+		>> Server
+
+URL Syntax:
+
+	ProtocolName://IP Address:portNumber//ApplicationContextName//WebResourceName(QS)
+
+	>> http://10.123.234.256:8080//EMS//Login.jsp(QS);
+
+	IP Address 	: Unique identification number over a network to identify the PC
+
+		     	Responsible: Network Adminstrator
+
+	Port Number 	: Unique Identification number given for 
+				each and every process in the system.
+
+			 Responsible: System Adminstrator
+
+	Query String 	: The Collection Of Name And Value Pairs Which 
+			are going to append at the end of the URL is Said To Be 
+			  Query String
+
+>> Ideal Properties Of A Protocol:
+
+	>> Connection Less Nature
+
+	>> Stateless Nature 
+
+	>> Compatible 
+
+>> How You Are Justifying Http Protocol statisfies stateless nature?
+
+>> Diff Between WebServer and ApplicationServer ?
+
+>> Diff Between IP Address and Port Number?
+
+>> Diff between CGI and Servlets, Servlets and JSP's?
+
+>> Tiered Architectures : 1 Tier, 2 Tier, 3 Tier etc.. N Tier 
+
+>> Logical Layers Of Enterprise Applications?
+
+		>> User Interface Layer
+
+		>> Business Logic Layer
+
+		>> Data Storage and Access Layer [ Persistance Layer ]
+
+Steps To Create A First Web Application:
+
+	1) Create A Web Application Directory Structure
+
+	2) Writing Deployement Descriptor [ web.xml ] 
+
+	3) Writing the web resources as part of your applications requirement
+
+	4) Deployee The Web Application in a Server
+
+	5) Accessing The Applications From Client Browsers
+====================
+Software Components:
+====================
+	JDK 			: 1.6 Version 
+				: Latest 1.8 Version, 2014  
+
+	Tomcat 			: 6.0 Version
+
+				: Latest 7.0,8.0 Servers
+
+	Oracle Software 	: 10 G Version
+
+				: 12 
+				: MYSQL, DB2...
+
+	JUNIT And LOG 4J	: JUNIT 4.0
+
+	HTML 			: HTML 4.0
+				: HTML 5.0 Features and it is latest
+
+	CSS			: CSS 3.0
+
+	Java Script		: Client Side Validation, OOJS
+
+	ECLIPSE 		: Eclipse Luna Or Latest Version
+
+	MVC Application		: Servlets, JSP's, JSTL, EL, J2SE
+				  Oracle Data Base
+				  HTML, CSS, Java Script, Angular JS, JQuery, JSON, AJAX
+
+	Project			: Course Management System
+				  OR
+				  Employee Management System
+
+	
+Servlet:
+========
+	>> Servlet is nothing but a server side object, 
+		and it is giving dynamic response for the client request.
+
+	>> Servlet is either directly or indirectly dependent on Servlet Interface.
+
+>> javax.servlet.*;
+>> javax.servlet.http.*;
+>> servlet-api.jar file
+
+Servlet Interface:
+==================
+	
+ 5 Life Cycle Methods of Servlet Interface
+
+>> javax.servlet.*;	
+
+
+  public abstract void init(ServletConfig config)throws ServletException;		
+
+  public abstract void service(ServletRequest request,ServletResponse response)
+					throws ServletException,IOException;
+
+  public abstract ServletConfig getServletConfig()throws ServletException;
+
+  public abstract String getServletInfo();
+
+  public abstract void destroy();
+
+
+Interfaces:				Classes:
+
+1) Servlet				1) ServletException
+
+2) ServletRequest			2) GenericServlet Abstract Class
+
+3) ServletResponse			3) HttpServlet Abstract Class
+
+4) HttpServletRequest			4) Cookie
+
+5) HttpServletResponse
+
+6) ServletConfig
+
+7) ServletContext
+
+8) Filter
+
+9) RequestDispatcher
+
+10) HttpSession
+
+etc..
+
+
+jar files:
+
+	>> servlet-api.jar file
+
+	>> jsp-api.jar file
+
+Will find this jar files in Tomcat Server/ lib folder
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 2: 	>> Servlet Life Cycle
+		>> Sample Web Application Creation
+		>> Servlet API Methods.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Steps To Create A First Web Application:
+
+	1) Create A Web Application Directory Strucure
+
+	2) Writing Deployement Descriptor [ web.xml ] // annotations
+
+	3) Writing the web resouces as part of your applications requirement
+
+	4) Deploye The Web Application in a Server
+
+	5) Accessing The Applications From Client Browsers
+
+
+
+Web Application:
+
+Step-1:
+
+>> 	html files, java script files, images, oraganization logos, 
+	java class files, css, Servlets, Jsp's..
+
+>> 	It is giving intimation about where to keep the application resources.
+
+
+	>> Public Area Resources
+
+	>> Private Area Resources
+
+Step- 2:
+
+	It is a web.xml file, which will provide the complete description about the web applications deployment.
+	Deployment Descriptor should provide the fallowing
+
+1.	servlet configuration
+2.	filters configuration
+3.	listeners configuration
+4.	welcome files configuration
+5.	initialization parameters
+6.	context parameters
+7.	session timed out
+8.	load-on-start up
+9.	error pages configuration
+10.	Security constraints etc…
+
+		In general in the web applications we are able to deploy 
+the servlets under classes folder i.e. private area, 
+where client able to access the servlets through indirection i.e. through URL pattern.
+
+> To 	provide the mapping between servlet class and the respective URL pattern 
+as part of the servlet configuration we will use the fallowing xml tags in web.xml file.
+
+
+
+Lets Assume:		WEB-INF/ class
+
+Reg.html		=============>RegistrationServlet.java
+
+Display.html		==============>DisplayEmployeesServlet.java
+
+
+===> http://localhost:8080/EMS/Reg.html
+
+Reg.html:
+
+fname,lname etc..
+[Submit] ===================>
+		http:://localhost:8080/EMS/Register
+URL Pattren:
+
+web.xml:
+
+	<web-apps>
+
+		<servlet>
+		<servlet-name>register</servlet-name>
+		<servlet-class>com.ems.RegistrationServlet</servlet-class>
+		</servlet>
+		
+		<servlet-mapping>
+		<servlet-name>register</servlet-name>
+		<url-pattren>/Register</url-pattren>
+		</servlet-mapping>
+
+		<servlet>
+		<servlet-name>display</servlet-name>
+		<servlet-class>com.ems.DisplayServlet</servlet-class>
+		</servlet>
+		
+		<servlet-mapping>
+		<servlet-name>display</servlet-name>
+		<url-pattren>/Display</url-pattren>
+		</servlet-mapping>
+
+	</web-apps>
+
+Step-3:
+
+	Create Web Resourcess as part of web application requirements.
+
+
+>> To create a servlet we are having 3 possiblities.
+
+>> Servlet is nothing but a server side object, and it is giving dynamic response for the client request, and it is either directly
+   or indirectly depends on Servlet Interface.
+
+	1) By Implementing A Servlet Interface 
+
+	2) By Extending GenericServlet Abstract Class
+
+	3) By Extending HttpServlet Abstract Class
+
+ 
+ A) By Implementing Servlet Interface
+
+	
+	public class RegistrationServlet implements Servlet{
+
+		// Servlet Related Business Logic
+
+	}
+
+
+ B) By Extending A GenericServlet Abstract Class
+
+	public class RegistrationServlet extends GenericServlet{
+
+		// Servlet Related Business Logic
+
+	}
+
+ C) By Extending A HttpServlet Abstract Class
+
+
+	public class RegistrationServlet extends HttpServlet{
+
+		// Servlet Related Business Logic
+	}
+
+ 
+ javax.servlet.*;
+
+
+Servlet Interface:
+
+	Here we are having five life cycle methods.
+
+	public abstract void init(ServletConfig config)throws ServletException;
+
+	public abstract void service(ServletRequest request,ServletResponse response)throws ServletException,IOException;
+
+	public abstract ServletConfig getServletConfig()throws ServletException;
+
+	public abstract String getServletInfo();
+
+	public abstract void destroy();
+
+Note:
+
+>> GenericServlet Class is protocol independent,
+but we need a http protocol dependent class.
+
+>> Http Protocol:
+
+	Ideal Properties:
+
+	1) Connection Less
+	2) Stateless Nature
+	3) Compatible Protocol.
+
+Step-4:
+	
+	Depolye The Web Application In Server.
+
+Step-5:
+
+	Access the application from client browser by using the url.
+
+
+Sample Application:
+
+Client Browser:
+
+http://10.241.34.256:8080//EMS//Form1.html
+				Public Area Resources
+
+Static Response 
+			Request
+Form1.html: User Input ==========> Servlet [  Business Logic  and Dynamic Resonse ] ======> DataBase
+
+							
+			<=========
+			Response
+------------
+Form1.html:
+------------
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="lightgreen">
+<form action="./RegitrationServlet">
+<table border="1">
+<tr><td>Emp Number</td><td><input type="text" name="empNumber"/></td></tr>
+<tr><td>Emp Name</td><td><input type="text" name="empName"/></td></tr>
+<tr><td>Emp Salary</td><td><input type="text" name="empSal"/></td></tr>
+<tr><td>Emp Dept No</td><td><input type="text" name="empDeptNo"/></td></tr>
+<tr><td><input type="submit" value="Register"/></td><td><input type="reset" value="Reset"/></td></tr>
+</table>
+</form>
+</body>
+</html>
+
+----------
+web.xml :
+----------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ServletsExamples_Manik</display-name>
+  <servlet>
+    <description></description>
+    <display-name>RegitrationServlet</display-name>
+    <servlet-name>RegitrationServlet</servlet-name>
+    <servlet-class>com.session1.RegitrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegitrationServlet</servlet-name>
+    <url-pattern>/RegitrationServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+--------------------------
+RegitrationServlet.java:
+--------------------------
+
+package com.session1;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+/**
+ * Servlet implementation class RegitrationServlet
+ */
+public class RegitrationServlet implements Servlet {
+
+	public RegitrationServlet(){
+		System.out.println("I AM From Constructor:"+this.getClass().getName());
+	}
+	public void destroy() {
+		System.out.println("I AM From destroy Method:"+this.getClass().getName());
+		
+	}
+
+	public ServletConfig getServletConfig() {
+		System.out.println("I AM From getServletConfig() Method:"+this.getClass().getName());
+		return null;
+	}
+
+	public String getServletInfo() {
+		System.out.println("I Am From getServletInfo() Method:"+this.getClass().getName());
+		return null;
+	}
+
+	public void init(ServletConfig arg0) throws ServletException {
+		System.out.println("I Am From init Method:"+this.getClass().getName());	
+	}
+
+	public void service(ServletRequest request, ServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("I AM From service Method:"+this.getClass().getName());
+		int empNumber=Integer.parseInt(request.getParameter("empNumber"));
+		String empName=request.getParameter("empName");
+		double empBasic=Double.parseDouble(request.getParameter("empSal"));
+		int empDeptNo=Integer.parseInt(request.getParameter("empDeptNo"));
+		System.out.println(empNumber);
+		System.out.println(empName);
+		System.out.println(empBasic);
+		System.out.println(empDeptNo);
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		Date date=new Date();
+		SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
+		String toDaysDate=dateFormat.format(date);
+		
+		out.println("<html><body bgcolor='lightgreen'>");
+		out.println("<hr>");
+		out.println("<font size='4' color='red'>");
+		out.println("Welcome Todays Date Is:"+toDaysDate);
+		out.println("<br>");
+		out.println("Employee Number:"+empNumber+"<br>");
+		out.println("Employee Name:"+empName+"<br>");
+		out.println("Employee Sal:"+empBasic+"<br>");
+		out.println("Employee Dept Number:"+empDeptNo+"<br>");
+		out.println("</body></html>");
+	}
+	
+}
+
+---------
+Output:
+---------
+
+I AM From Constructor:com.session1.RegitrationServlet
+I Am From init Method:com.session1.RegitrationServlet
+I AM From service Method:com.session1.RegitrationServlet
+111
+Srinivas
+9000.0
+10
+I AM From service Method:com.session1.RegitrationServlet
+111
+Srinivas
+9000.0
+10
+I AM From service Method:com.session1.RegitrationServlet
+112
+Vasu
+8900.0
+20
+
+--------
+Note :
+--------
+
+1) Servlet Object Instantiated By The ServletContainer [ Means Tomcat Container ]
+
+2) After ServletObject is instatiated by the container, 
+	init method will be called by the container, if at all we are writing any
+   initialization code, then that initializations will take place.
+
+3) init method called by the container only one time
+  through out the respective servlet life cycle.
+
+4) service method will be invoked by the container 
+   for each and every new request that was recieved by the tomcat server.
+
+5) Contianer wait for some time, 
+  if container does not get any new request for the same servlet 
+  then it will call the destroy method.
+
+6) Servlet object will be garbage collected in order 
+  to maintain server memory resources effectively.
+
+7) Yes it is possible to have a User Defined Constructor in Servlet,
+  but it is public and zero argument constructor only allowed.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 3: 	>> Servlet Life Cycle Continuation
+		>> Sample Web Application Creation
+		>> Servlet API Methods.
+		>> Servlet and JDBC Application
+		>> HttpServlet Example and Http Protocol Methods
+		>> RequestHeader Information Example Program
+--------------------------------------------------------------------------------------------------------------------------------------
+
+>> servlet-api.jar ===> Tomcat/lib ==> servlet-api.jar, jsp-api.jar, el-api.jar..
+
+1) We are placing the servlet-api.jar file into the class path/
+  In  Otherwards will be placing this jar file in Build Path
+
+2) Servlet is an object available at server machine, 
+	and it is either directly or indirectly depends on Predefined Servlet Interface.
+
+3) import javax.servlet.*
+
+4) Servlet Interface Methods.
+
+		public abstract void init(ServletConfig config)throws ServletException;
+
+		public abstract void service(ServletRequest request,ServletResponse response)throws ServletException,IOException;
+
+		public abstract ServletConfig getServletConfig();
+
+		public abstract String getServletInfo();
+
+		public abstract void destroy();
+
+5) Yes it is possible to write the constructor inside of a servlet,
+ but the constructor sholud be public and no argument constructor.
+
+	Request [./Registration]
+Reg.html==========>	web.xml  ===> RegistrationServlet.java
+
+					===============> If it is first request. 
+								Then Servlet Object 
+								Is Instantiated by
+								 the container.
+					================>
+
+>> Servlet Byte Code will be loaded to operational memory [ It is Called As Servlet Loading ]
+
+>> Servlet Object will be instantited by the container. [ It is Called As Servlet Instantiation ]
+
+>> As part of the life cycle init method will be called by the container. [ It is Called As Servlet Initialization ]
+
+>> A Thread Will be spanned on the servlet Object and it is trying to access service method.
+		
+		>> ServletRequest
+		
+		>> ServletResponse
+
+		>> For each and every thread a sepearate private run time stack will be created.  
+		
+		>> In Side Of Service Method We are Writing the Business Logic, 
+	As part of the business logic we are getting some dynamic response.
+	 We are supposed to send this response to client machine.
+
+		>> response.setContentType("text/html");
+
+		>> PrintWriter out=response.getWriter();
+
+		>> We are establishing a logical stream between our service method and response objects.
+
+		>> A Stream is nothing but a flow of data between source and destination.
+
+		>> Here Source is service method and destination will be the response object.
+
+		>> After That Thread is reached to dead state.
+		
+		>> Before that response object will be directed to client browser.
+		
+Note: After response reached to client browser.
+
+	As part of the default nature of Http Protocol, 
+	the virtual protocol socket connection existed between clinet and server
+ will be destroyed.
+
+	1) Connection Less Protocol
+
+	2) Stateless nature
+
+	3) Compatible Protocol.
+
+>> What ever the request you are sending from the client 
+	it will be consider as a new request.
+
+>> Now Tomacat container wait for some time,
+ if no other request for the same Servlet, 
+Then to maintain memory resources of server.
+
+>> Servlet De Initialization, Servlet De Instatiation, Servlet Un Loading. 
+
+>> How much time the container is waiting for 
+	to De-instntiate a servlet depends on Container implementation.
+
+
+
+HttpServlet Abstract Class:
+
+>> It is protocol compatible.
+
+>> It is givng different options for the users.
+
+	>> GET		>> PUT		>> DELETE
+
+	>> POST		>> OPTIONS
+
+	>> HEAD		>> TRACE
+
+>> We are calling these request types are BIG-7 Http Protocol Methods.
+
+>> Default Request Type Is GET
+
+URL:
+
+[
+	Header Part [ Protocol Name, and its Version, port number, url, accepeted lang, locale info etc..
+	===========
+	Body Part [ Query String ]
+
+] Request Format
+
+GET:
+
+http://localhost:8080/ServletsExamples_Manik/RegitrationServlet?empNumber=111&empName=Srinivas&empSal=9000&empDeptNo=20
+
+POST:
+
+http://localhost:8080/ServletsExamples_Manik/RegitrationServlet
+
+Query String:
+
+	Query String is nothing but the collection of name and value pairs which are going to append at the end of the  url.
+
+
+------------
+Form2.html:
+------------
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="lightgreen">
+<form action="./EmpRegistrationServlet" method="post">
+<table border="1">
+<tr><td>Emp Number</td><td><input type="text" name="empNumber"/></td></tr>
+<tr><td>Emp Name</td><td><input type="text" name="empName"/></td></tr>
+<tr><td>Emp Salary</td><td><input type="text" name="empSal"/></td></tr>
+<tr><td>Emp Dept No</td><td><input type="text" name="empDeptNo"/></td></tr>
+<tr><td><input type="submit" value="Register"/></td><td><input type="reset" value="Reset"/></td></tr>
+</table>
+</form>
+</body>
+</html>
+
+-----------
+web.xml : 
+-----------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ServletsExamples_Manik</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>RegitrationServlet</display-name>
+    <servlet-name>RegitrationServlet</servlet-name>
+    <servlet-class>com.session1.RegitrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegitrationServlet</servlet-name>
+    <url-pattern>/RegitrationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EmpRegistrationServlet</display-name>
+    <servlet-name>EmpRegistrationServlet</servlet-name>
+    <servlet-class>com.session1.EmpRegistrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmpRegistrationServlet</servlet-name>
+    <url-pattern>/EmpRegistrationServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+-----------------------------
+EmpRegistrationServlet.java
+-----------------------------
+
+package com.session1;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class EmpRegistrationServlet
+ */
+public class EmpRegistrationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private Connection connection = null;
+	private PreparedStatement pstStatement = null;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EmpRegistrationServlet() {
+		super();
+		System.out
+				.println("I Am From Constructor:" + this.getClass().getName());
+	}
+
+	@Override
+	public void init() {
+		System.out.println("I Am From default init method: "
+				+ this.getClass().getName());
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection = DriverManager
+					.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+							"System", "Training");
+			String insertQuery = "insert into emp2 values(?,?,?,?)";
+			pstStatement = connection.prepareStatement(insertQuery);
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void destroy() {
+		System.out.println("I Am From destroy method: "
+				+ this.getClass().getName());
+
+		if (pstStatement != null && connection != null) {
+			try {
+				pstStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("I Am From doPost Method:"
+				+ this.getClass().getName());
+		int empNumber = Integer.parseInt(request.getParameter("empNumber"));
+		String empName = request.getParameter("empName");
+		double empBasic = Double.parseDouble(request.getParameter("empSal"));
+		int empDeptNo = Integer.parseInt(request.getParameter("empDeptNo"));
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		try {
+			pstStatement.setInt(1, empNumber);
+			pstStatement.setString(2, empName);
+			pstStatement.setDouble(3, empBasic);
+			pstStatement.setInt(4, empDeptNo);
+			int updateCount = pstStatement.executeUpdate();
+			if (updateCount > 0) {
+				Date date = new Date();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+				String toDaysDate = dateFormat.format(date);
+				out.println("<html><body bgcolor='lightgreen'>");
+				out.println("<hr>");
+				out.println("<font size='4' color='red'>");
+				out.println("Welcome Todays Date Is:" + toDaysDate);
+				out.println("<br>");
+				out.println("Employee Record Inserted Successfully");
+				out.println("<br>");
+				out.println("Employee Number:" + empNumber + "<br>");
+				out.println("Employee Name:" + empName + "<br>");
+				out.println("Employee Sal:" + empBasic + "<br>");
+				out.println("Employee Dept Number:" + empDeptNo + "<br>");
+				out.println("</body></html>");
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+}
+===
+Example:
+
+-----------------
+RequestInfo.html:
+-----------------
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Request Header Information</title>
+</head>
+<body bgcolor="lightpink">
+
+<form name="f1" action="./RequestHeaderInformation" method="get">
+
+<input type="submit" value="Submit"/>
+</form>
+
+</body>
+</html>
+
+-----------
+web.xml:
+-----------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ServletsExamples_Manik</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>RegitrationServlet</display-name>
+    <servlet-name>RegitrationServlet</servlet-name>
+    <servlet-class>com.session1.RegitrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegitrationServlet</servlet-name>
+    <url-pattern>/RegitrationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EmpRegistrationServlet</display-name>
+    <servlet-name>EmpRegistrationServlet</servlet-name>
+    <servlet-class>com.session1.EmpRegistrationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmpRegistrationServlet</servlet-name>
+    <url-pattern>/EmpRegistrationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RequestHeaderInformation</display-name>
+    <servlet-name>RequestHeaderInformation</servlet-name>
+    <servlet-class>com.session1.RequestHeaderInformation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RequestHeaderInformation</servlet-name>
+    <url-pattern>/RequestHeaderInformation</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+-------------------------------
+RequestHeaderInformation.java:
+-------------------------------
+
+package com.session1;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class RequestHeaderInformation
+ */
+public class RequestHeaderInformation extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RequestHeaderInformation() {
+		super();
+		System.out.println("In Cons");
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("From doGet Method");
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<body>");
+		out.println("<head>");
+		out.println("<title>Request Information Example</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<h3>Request Information Example</h3>");
+		out.println("Method: " + request.getMethod());
+		out.println("Request URI: " + request.getRequestURI());
+		out.println("Protocol: " + request.getProtocol());
+		out.println("PathInfo: " + request.getPathInfo());
+		out.println("Remote Address: " + request.getRemoteAddr());
+		out.println("<br>");
+		out.println("******************************");
+		out.println("<br>");
+		java.util.Enumeration e = request.getHeaderNames();
+		while (e.hasMoreElements()) {
+			out.println("<br>");
+			String name = (String) e.nextElement();
+			String value = request.getHeader(name);
+			out.println(name + " = " + value);
+		}
+		out.println("<br>");
+		out.println("******************************");
+		out.println("</body>");
+		out.println("</html>");
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 4: 	>> Servlet Life Cycle Continuation
+		>> ServletConfig and ServletContext Interfaces
+		>> Servlet API Methods.
+		>> Programs On ServletConfig and ServletContext
+--------------------------------------------------------------------------------------------------------------------------------------
+
+>> ServletConfig is an object which is going to maintain
+   the configuration details of perticular Servlet.
+
+	>> Like Logical Name Of The Servlet
+
+	>> initalization patameters data
+
+	>> reference of the servletcontext object.
+
+	<web-app>
+		<servlet>
+		
+		<servlet-name>EMPSalaryCaliculationServlet</servlet-name>
+		<servlet-class>com.session.EMPSalaryCaliculationServlet</servlet-name>
+		<init-param>	
+				<param-name>HRA</param-name>
+				<param-value>0.40</param-value>
+		</init-param>
+
+		<init-param>	
+				<param-name>DA</param-name>
+				<param-value>0.40</param-value>
+		</init-param>
+
+		<init-param>	
+				<param-name>IncrValue</param-name>
+				<param-value>2500.789</param-value>
+		</init-param>
+		</servlet>
+
+		<servlet-mapping>
+			<servlet-name>EMPSalaryCaliculationServlet</servlet-name>
+			<url-pattren>/SalaryCaliculation</url-pattren>
+		</servlet-mapping>
+
+</web-app>
+
+
+	ServletContext is an object which is going to maintain context details 
+of an Application.
+
+	>> Name OF The Web Application
+	>> Context Parameters Data
+
+<web-app>
+<display-name>ServletExamples</display-name>
+<context-param>
+				<param-name>DBUserName</param-name>
+				<param-value>System</param-value>
+
+</context-param>
+<context-param>
+				<param-name>DBUserPwd</param-name>
+				<param-value>Training</param-value>
+
+</context-param>
+
+
+		<servlet>
+		
+		<servlet-name>EMPSalaryCaliculationServlet</servlet-name>
+		<servlet-class>com.session.EMPSalaryCaliculationServlet</servlet-name>
+			<init-param>	
+				<param-name>HRA</param-name>
+				<param-value>0.40</param-value>
+			</init-param>
+
+			<init-param>	
+				<param-name>DA</param-name>
+				<param-value>0.40</param-value>
+			</init-param>
+
+			<init-param>	
+				<param-name>IncrValue</param-name>
+				<param-value>2500.789</param-value>
+			</init-param>
+		</servlet>
+
+		<servlet-mapping>
+			<servlet-name>EMPSalaryCaliculationServlet</servlet-name>
+			<url-pattren>/SalaryCaliculation</url-pattren>
+		</servlet-mapping>
+
+</web-app>
+
+
+>> Servlet Config object will be created by the container
+ just after the servlet instantiation and 
+just before calling init () as part 	of servlet initialization.
+
+	ServletContext object will be created by the Container 
+at the time of starting up of the server.
+
+>> Servlet Config object will be destroyed by the container 
+just before the servlet Deinstantiation. 
+Due to the above reasons the life of the servlet config object is the life of servlet.
+
+	ServletContext life time is entire web application.
+	
+	Gives data sharability option for us.
+
+Parameter Vs Attributes:
+
+	>> At the time of creation of an object by the container,
+ that data which is avialable already such type of data is said to be parameters data.
+
+		===> request.getParameter("empId");
+		===> config.getInitParameter("HRA");
+		===> context.getInitParameter("dbUserName");
+
+	>> What ever the data which we are going
+ to add after object creation such type of data is said to be Attributes data.
+
+		===> request.setAttribute("cityName","Hyderabad");
+
+		===> session.setAttribute("userId",userId);
+		
+		===> context.setAttribute("loginId",loginId);
+
+>> config object allows only parameters data [ static inclusion ]
+
+>> context object allows both parameters data and attributes data, 
+	that means static inclusion and dynamic inclusion also possible.
+
+		 context.setAttribute("loginId",loginId);
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 5: 	>> Servlet Communication
+		>> Browser To Servlet Communication
+		>> Servlet API Methods.
+		>> Web Component Communication
+		>> RequestDispatcher Interface
+--------------------------------------------------------------------------------------------------------------------------------------
+
+					Servlet Communication
+		=============================================================
+	1) Browser To Servlet Communication			2) Web Component Communication
+	
+	>> Sending Normal Request and Normal Response			>> Include Mechanisam
+
+	>> Sending The Error Messages					>> Forward Mechanisam
+
+	>> Request Re Direction
+		
+		>> By Sending Hyper Links
+
+		>> By Setting Response Header
+
+		>> By Using Send Re Direct Mechanisam
+
+
+FashionShow:
+
+	RegistrationForm.html			======>	RegistrationServlet
+
+	UserName
+	
+	User Address
+
+	User DOB/ Age					age<18 || age>30
+							throw an error message
+
+							response.sendError(504,"U Are Not Allowed FOr THe Fashion Show");
+
+
+Request Re Direction:
+
+Scenario:
+
+UG -3 
+	2005-2006 Hutch 	: 9885121657===========> Hutch Server ======> Response's
+
+		  Vodafone	: 9885121657===========> Hutch Server ======> Vodafone Server
+								      
+						                      <======= Response		  
+
+1) By Sending A Hyperlink
+
+2) By Setting A Response Header
+
+3) By Using sendRedirect() Mechanisam
+
+
+
+Web Component Communication:
+
+	1) We need to create RequestDispatcher Object [ RequestDispatcher is an Interface ]
+
+		>> By Using request object
+
+		>> By Using ServletContext Object
+
+		RequestDispatcher dispatcher=request.getRequestDispatcher(String webResourceName);
+
+			Or
+		RequestDispatcher dispatcher=context.getRequestDispatcher(String webResourceName);		
+
+	2) Based on our business requirements we need to call either include(req,res), or forward(req,res).
+
+			dispatcher.include(request,response);
+
+			or
+
+			dispatcher.forward(request,response);
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 6: 	>> Session Management
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Ideal Properties:
+
+	>> Connection Less Nature
+
+	>> State Less Nature
+
+	>> Compatible Protocol.
+
+How Http Protocol Maintains its stateless nature?
+
+ >> Not to maintain privious requested data when we are making new request.
+
+ >> Each and every request that sends by the client will be considered as a new request.
+
+
+Net Banking:
+
+ICICI BANK:		Request			Server
+			============>
+
+Loign.html					LoginController
+
+Customer ID :					customerId=Long.parseLong(req.getP("cid"));
+
+Customer Pwd:					pwd= req.getP("pwd");
+
+	[ Submit ]				boolean result=loginDAO.validate(cid,pwd);
+						if(result){
+
+						RD rd=req.getRD("clientHomePage.jsp");
+						
+						rd.forward(request,response);					
+			  Response		}
+			<================
+Response:
+
+clinetHomePage.jsp		
+		
+customerId=Long.parseLong(req.getP("cid"));		Request
+ >> CheckMinimumBalance      =============>		MinimumBalanceController
+														
+ >> CheckLatestMonthReport			 	customerDAO.returnMinimumBalanceStatement(cid);
+
+ >> etc..
+
+
+>> In realtime applications some point of time even that application needs old requested data.
+
+>> Here we are in a need of data sharability options.
+
+
+>> ServletConfig Scope 		===> With In This Servlet
+
+>> HttpServletRequest Scope 	===> request scope is in limited area. and it works upto servlet chaining only.
+
+>> ServletContext Scope		===> context will allows both static and dynamic inclusions.
+				
+				====> context scope is for entire web application
+	
+				====> here we are having data sharability options.
+
+					LoginController.java
+
+			
+					customerId, cutomerPwd ==> from request.
+
+					ServletContext context=getServletConfig().getServletContext();
+					context.setAttribute("customerId",customerId);
+
+
+
+				=======>	MinimumBalanceController.java
+
+						ServletContext context=getServletConfig().getServletContext();
+								long customerId=(Long)context.getAttribute("customerId");
+
+						customerDAO.returnMinimumBalanceStatement(customerId);		
+
+Operational Memory:
+				name	 value
+	[ Attributes Date: "customerId"  customerId          ]context
+
+>> For Each and Every Web Application We Have Only One Context Object.
+
+>> There is a problem of data security.
+
+>> The data may become bulkier.
+
+	To eliminate this drawback we need some alternate mechnisam, that is with the name of Session Management Techniques.
+
+		>> HttpSession Managment System
+
+		>> Cookies Session Management System
+
+		>> URL Re Writing 
+
+				>> Above three are Sun Micro System Suggestions.
+
+		>> Hidden Form Fileds [ Developers alternate solution ]
+
+
+>> What do you mean by a Session?..
+
+	The time duration between client and server interaction is nothing but a Session.
+
+>> State Of The Session:
+
+	The data which is transferred between clinet and Server during 
+a perticular session is nothing but State of The Session.	
+
+	HttpSession hs=request.getSession(boolean flag);
+		
+			flag - true - default
+			       false
+	***
+		Whats the difference between request.getSession() and
+				     request.getSession(false) Methods?
+
+	***
+		What do you mean by JSession ID?
+
+	***
+		How container map's the client-browser and its respective session object?
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 7: 	>> Filters and Examples
+--------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 8: 	>> Jsp Session1
+--------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 9: 	>> Jsp Session2
+--------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------
+Session 10: 	>> Jsp Session3, JSTL, EL, CUSTOM TAGS
+		>> EMS_MVC APPLICATION
+		>> JUNIT
+		>> LOG4J
+--------------------------------------------------------------------------------------------------------------------------------------
+Next:
+
+Frame Works: 
+		
+	     Spring Frame Work ====> 	IOC
+					DAO 
+					Spring-JDBCTemplate
+					Spring-MVC
+	     Hibernate ORM    ====>
+					Hibernate Complete Concepts
+					Spring-Hibernate Integration
+					Spring-HibernateTemplate
+	     Web Services
+	     Angular JS
+				
+---------------------------------------------------------------------------------------------------------
+		

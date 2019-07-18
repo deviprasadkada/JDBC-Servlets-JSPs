@@ -1,0 +1,1272 @@
+=========================================================================================================================
+Session 1: 	>>	Introduction To JDBC
+			>> 	Types Of Drivers
+			>> 	Steps To Connect To The Data Base
+			>>	java.sql.* package Classes and Interfaces
+
+=========================================================================================================================
+Driver Interface
+				====> Oracle	- DriverImplementation Class
+				====> DB2		- DriverImplementation Class
+				====> MySql		- DriverImplementation Class
+				====> SQL Server- DriverImplementation Class
+					etc..
+					
+					
+JDBC -- Java Data Base Connectivity
+					JDBC API
+					
+Java progam	====> 	Translator 		<=====Data Base
+										Employee Table
+OOP Model				
+										Relational Model
+										Query Language
+
+
+Driver Interface :
+
+	Driver is nothing but a software which can translate 
+	java representations into query calls and vice versa.
+
+
+
+1) Driver Is An Interface given by sun micro system.
+
+>> In Interface we have protocols.
+
+JDBC 1.0
+JDBC 2.0
+JDBC 3.0	
+JDBC 4.0	===> JDK 1.6
+JDBC 4.1  	===> JDK 1.7
+java.sql.*:
+
+	Interfaces					Classes
+
+	1) Driver					1) DriverManager
+
+	2) Connection				2) SQLException
+
+	3) Statement				3) java.sql.Date
+
+	4) PreparedStatement		4) java.sql.Types
+
+	5) CallableStatement			..etc
+
+	6) ResultSet
+
+	7) ResultSetMetaData
+
+	8) DataBaseMetaData
+	
+	9) SavePoint
+	
+	10) DataSource
+	..etc
+7***********************************8
+         
+		 ---Driver manager
+			conn getconnection
+		--connection
+			stmt createStatement
+			prepareStatement psmt()
+			callablestament csmt()
+		--statement
+		  boolean execute
+		--ResultSet
+		   next()
+		   getString
+		   getdate
+		   get inot
+		   gey object
+		   get double
+		   resultset metadata
+		--resultSetMetadata
+		   getcolumncount()
+		   getcolumnname()
+		   getcolumntype
+		--prepareStatement
+		   setString
+		   setinit
+		   setDouble
+		--callablestament
+		   setString
+		   setint
+		   setdouble
+		   registerOutParameter
+		   getint
+		--types
+			INTEGER
+			VARCHAR
+			DATE
+			DOUBLE
+		--dataBaseMetaDataExample
+javax.sql
+
+batch updates
+Transactions
+Scrollable ResultSet		
+		 
+7************************************8
+	
+		  Driver
+interface IEmployee{
+	public abstract readEmployeeDetails();
+	
+	public abstract double doSalaryCaliculation();
+
+	public abstract void printSalaryStatement();	
+}
+
+
+Oracle Driver Implementation Class 	:PEmployee
+
+MYSQL Driver Implementation Class	:CEmployee
+
+DB2	Driver Implementation Class		:HEmployee
+
+
+
+Final Stmt:
+
+										Byte Code Given By The Vendor 
+										For Driver Implementation Class
+Java App ====> [ JDBC API ] ====> [ Vendor Given Driver Implementation Class ] 
+
+					||
+					||
+					\\[ Vendor Data Base ]
+Types Of Drivers:
+
+1) Type -1 Driver : JDBC-ODBC Bridge Driver ===> Sun Micro Systems
+												[ sun.jdbc.odbc.JdbcOdbcDriver ]
+2) Type -2 Driver : Part Java And Part Native Driver / Native Driver
+
+3) Type -3 Driver : Network Driver
+
+4) Type -4 Driver : Thin Driver 
+
+Type - 3 Performance Will be good and also it is very costly driver.
+
+Type -1 Driver is the slowset driver
+
+Normally we use Type -4 Driver.
+
+	>> It is Portable
+	
+	>> And Cheapset Driver
+
+	>> We can use for any type of applications
+
+	>> It is fully java driver..
+	
+=====================================================
+Steps To Connect To Data Base From Java Application:
+=====================================================
+1) Load And Register The Driver Implementation Class
+2) Establishing A Connection
+3) Create Either Statement/PreparedStatement/CallableStatement Objects
+4) Writing and Executing The SQL Queries , Process The ResultSet
+5) Closing The Resources
+
+Note:
+>> JDBC 4.0 API
+		Sub Classes For SQLException was introduced.
+>> No Need to Register The DriverImplementation Class Manually,
+	this step will be taken care automatically
+	
+>> SavePoint Interface
+	JDBC 3.0 API
+	
+java.sql*:
+
+	Interfaces			Classes
+
+	1) Driver			1) DriverManager
+
+	2) Connection		2) SQLException
+
+	3) Statement		3) java.sql.Date
+
+	4) PreparedStatement 4) java.sql.Types
+
+	5) CallableStatement
+
+	6) ResultSet
+
+	7) ResultSetMetaData
+
+	8) DataBaseMetaData
+	
+	9) SavePoint
+
+Step - 1:
+
+	1) Load And Register The Driver Implementation Class
+
+		Syn:
+
+	A) Class.forName(String driverImplementationClassName)throws ClassNotFoundException;
+	
+	B) DriverManager.registerDriver(driverImplementationClassInstance);
+
+
+	Ex:	Type -1 Driver
+
+
+			A) Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+			OR
+
+			B) DriverManager.registerDriver(new sun.jdbc.odbc.JdbcOdbcDriver());
+
+ This step is not mandatory when we are using Type -1 Driver In Your Application.
+ If we are using other than Type -1 Driver then this step is mandatory
+
+		Type -4 Driver Given By Oracle
+
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		Type -4 Driver Given By MySQL
+
+			Class.forName("com.mysql.jdbc.Driver");
+
+JDBC 4.0 ==> JDK 1.6 Version
+		 ==> ojdbc14.jar file	 ==> Class Path
+		 ==> mysql-connector.jar ==> Class Path
+
+		 ==> SQLException
+				sub classes were introduced
+		 
+Step - 2:
+
+	2) Establish A Connection Between Java Application And The Data Base
+		Syn:
+
+		>> Connection con=DriverManager.getConnection
+						(String dataBaseURL,
+							String dataBaseUserName,
+							String dataBasePassWord)
+						throws SQLException;
+						
+		>> DataSource Interface - Connection Pooling
+
+	Type -1 Driver:
+
+	Connection con=DriverManager.getConnection("jdbc:odbc:dsnName","System","Training");
+
+	Type -4 Driver: Oracle
+
+	Connection con=DriverManager.getConnection
+		("jdbc:oracle:thin:@localhost:1521:xe","System","Training");
+					// IP Address
+					// 1521 is standard port number for Oracle
+					// xe - host String
+
+	Type -4 Driver: MYSQL
+						
+		Connection con=DriverManager.getConnection
+			("jdbc:mysql://localhost:3306/EMS","root","root");
+
+				// 3306 standard port number for mysql
+				// EMS - is application data base name
+Step - 3:
+
+	3) Create Either Statement/PreparedStateme   nt/CallableStatement 
+Depending Upon The Programming Requirements
+
+		Statement st=con.createStatement();
+
+		SQL 		===> Statement/PreparedStatement
+							DML,DDL,DCL,TCL,DQL
+
+		PL/SQL 		===> CallableStatement
+							StoredProcedures
+							User Defined Functions
+							Cursors
+Step - 4:
+
+	4) Write and Execute SQL Queries
+
+		String sqlQuery="select *from emp";
+		String insertQuery="insert into emp values(111,'AAA',9000)";
+
+1)  public boolean execute(String sqlQuery)throws SQLException;
+
+2)  public ResultSet executeQuery(String sqlQuery)throws SQLException;
+
+	// Selection Group SQL Queries [ Select ]
+
+3) public int executeUpdate(String sqlQuery)throws SQLException;
+
+	//   Updation Group SQL Queries [ insert, update, delete ]
+	//   DDL						[ create, alter, drop etc ]
+
+Step - 5:
+	
+	5) Close The Connection and Remaining Data Base Resourses
+
+		public void close()throws SQLException;
+		con.close();
+ 
+1) What are all the ways to connect to Database By Using JDBC?
+
+	>> 4 Ways
+
+1) Connection connection=DriverManager.getConnection(String Argument)throws SQLException; 
+2) Connection connection=DriverManager.getConnection(String arugument1,String argument2,String argument3)throws SQLException; 
+3) Connection connection=DriverManager.getConnection(String Argument,Properties instance)throws SQLException; 
+	>> java.util.Properties class
+		 is a sub class of Hashtable and these are all legeacy collection
+
+4) Getting the connection from Connection Pooling Concept
+
+2) Is it possible to connect to multiple databases in a single java application?
+	Yes
+	Connection connection1=(OracleDataBase);
+	
+	Connection connection2=(MYSQLDataBase);
+
+3) What is the internal work of Class.forName() in JDBC Applications?
+
+4) JDBC 3.0 and JDBC 4.0 
+
+   Advanages? Version Wise Differences?
+
+=========================================================================================================================
+Session 2: 	>>	Steps To Connect To The Data Base
+		>> 	Statement Interface Methods
+		>> 	ResultSet Interface Methods
+		>>	ResultSetMetaData Interface Methods
+		>>	Sample Examples
+=========================================================================================================================
+
+StatementInterfaceDemo.java:
+
+package com.jdbc;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+class StatementExample {
+
+	private Connection getConnection() {
+		Connection con = null;
+		try {
+			// Load And Register The Driver
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager
+					.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+							"system", "training"); // Step -2
+			System.out.println("Connection Success");
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+	public boolean registerEmployee() {
+		String methodName = "registerEmployee()";
+		System.out.println("Method Invoked:" + methodName);
+		boolean successFlag = false;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Employee Number");
+		int empNumber = sc.nextInt();
+		System.out.println("Enter Employee Name");
+		String empName = sc.next();
+		System.out.println("Enter Employee Basic");
+		double empBasic = sc.nextDouble();
+		System.out.println("Enter Employee Dept Number");
+		int empDeptNumber = sc.nextInt();
+		Connection connection = null;
+		Statement statement = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement(); // Step -3
+			// Step -4 Write And Execute SQL Query
+			// insert into emp2 values(111,'AAA',9000.34,10);
+			String insertQuery = "insert into emp2 values(" + empNumber + ",'"
+					+ empName + "'," + empBasic + "," + empDeptNumber + ")";
+			int updateCount = statement.executeUpdate(insertQuery);
+			if (updateCount > 0) {
+				successFlag = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// Step -5
+				// Closing the Resources
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+
+		System.out.println("Response From The Method:" + methodName + ":"
+				+ successFlag);
+
+		return successFlag;
+	}
+
+	public void getEmployeeDetails() {
+
+		String methodName = "getEmployeeDetails()";
+		System.out.println("Method Invoked:" + methodName);
+
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement();
+			String selectQuery = "select *from emp2";
+			resultSet = statement.executeQuery(selectQuery);
+			System.out.println("Emp Number" + "\t" + "Emp Name" + "\t"
+					+ "Emp Sal" + "\t" + "Dept Number");
+			while (resultSet.next()) {
+				System.out.print(resultSet.getInt("empno") + "\t");
+				System.out.print(resultSet.getString(2) + "\t");
+				System.out.print(resultSet.getDouble(3) + "\t");
+				System.out.print(resultSet.getInt(4));
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				resultSet.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public void getEmployeeDetailsByRSMD() {
+		String methodName = "getEmployeeDetailsByRSMD()";
+		System.out.println("Method Invoked:" + methodName);
+
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement();
+			String selectQuery = "select *from emp2";
+			resultSet = statement.executeQuery(selectQuery);
+			ResultSetMetaData rsmd = resultSet.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			System.out.println("Number Of Columns:" + columnCount);
+
+			System.out.println("*************************************");
+			for (int i = 1; i <= columnCount; i++) {
+				System.out.print(rsmd.getColumnName(i) + "\t");
+			}
+			System.out.println();
+			System.out.println("***************************************");
+			while (resultSet.next()) {
+				for (int i = 1; i <= columnCount; i++) {
+					System.out.print(resultSet.getString(i) + "\t");
+				}
+				System.out.println();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				resultSet.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+}
+
+public class StatementInterfaceDemo {
+	public static void main(String[] args) {
+		StatementExample example = new StatementExample();
+		boolean registrationFlag = example.registerEmployee();
+		if (registrationFlag) {
+			System.out.println("Employee Record Inserted Successfully");
+		}
+
+		example.getEmployeeDetails();
+		example.getEmployeeDetailsByRSMD();
+	}
+}
+
+
+=========================================================================================================================
+Session 3: 	>>	Steps To Connect To The Data Base
+		>> 	Statement Interface Methods
+		>> 	ResultSet Interface Methods
+		>>	ResultSetMetaData Interface Methods
+		>>	DataBaseMetaData Interface
+		>>	BatchUpdates
+		>>	Transactions Automicity
+
+			>> commit and Roll Back Etc
+=========================================================================================================================
+
+Transactions:
+
+
+	1) By Default Jdbc Connection is Auto Commit In Nature.
+
+
+	ATM:
+
+
+		Min Statement 		:  ATM CARD: Available Balance 15000 Rs/-
+	
+		With Draw     		:  5000 Rs/-	
+
+		Available Balance 	: 10000 Rs/-			
+
+
+	double availableBalance=" Select availableBalance from accountsMaster where customerId=111" ;
+
+	availableBalance=availableBalance-withDrawAmount;
+
+			"update accountsMaster set availableBalance="+availableBalance;
+
+
+	Error Message:
+
+		" No Sufficinet cash in ATM Machine.."
+
+
+package com.jdbc;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+class StatementExample {
+
+	private Connection getConnection() {
+		Connection con = null;
+		try {
+			// Load And Register The Driver
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager
+					.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+							"system", "training"); // Step -2
+			con.setAutoCommit(false);
+			System.out.println("Connection Success");
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+	public boolean registerEmployee() {
+		String methodName = "registerEmployee()";
+		System.out.println("Method Invoked:" + methodName);
+		boolean successFlag = false;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Employee Number");
+		int empNumber = sc.nextInt();
+		System.out.println("Enter Employee Name");
+		String empName = sc.next();
+		System.out.println("Enter Employee Basic");
+		double empBasic = sc.nextDouble();
+		System.out.println("Enter Employee Dept Number");
+		int empDeptNumber = sc.nextInt();
+		Connection connection = null;
+		Statement statement = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement(); // Step -3
+			// Step -4 Write And Execute SQL Query
+			// insert into emp2 values(111,'AAA',9000.34,10);
+			String insertQuery = "insert into emp2 values(" + empNumber + ",'"
+					+ empName + "'," + empBasic + "," + empDeptNumber + ")";
+			int updateCount = statement.executeUpdate(insertQuery);
+			if (updateCount > 0) {
+				successFlag = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// Step -5
+				// Closing the Resources
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+
+		System.out.println("Response From The Method:" + methodName + ":"
+				+ successFlag);
+
+		return successFlag;
+	}
+
+	public void getEmployeeDetails() {
+
+		String methodName = "getEmployeeDetails()";
+		System.out.println("Method Invoked:" + methodName);
+
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement();
+			String selectQuery = "select *from emp2";
+			resultSet = statement.executeQuery(selectQuery);
+			System.out.println("Emp Number" + "\t" + "Emp Name" + "\t"
+					+ "Emp Sal" + "\t" + "Dept Number");
+			while (resultSet.next()) {
+				System.out.print(resultSet.getInt("empno") + "\t");
+				System.out.print(resultSet.getString(2) + "\t");
+				System.out.print(resultSet.getDouble(3) + "\t");
+				System.out.print(resultSet.getInt(4));
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				resultSet.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public void getEmployeeDetailsByRSMD() {
+		String methodName = "getEmployeeDetailsByRSMD()";
+		System.out.println("Method Invoked:" + methodName);
+
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement();
+			String selectQuery = "select *from emp2";
+			resultSet = statement.executeQuery(selectQuery);
+			ResultSetMetaData rsmd = resultSet.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			System.out.println("Number Of Columns:" + columnCount);
+
+			System.out.println("*************************************");
+			for (int i = 1; i <= columnCount; i++) {
+				System.out.print(rsmd.getColumnName(i) + "\t");
+			}
+			System.out.println();
+			System.out.println("***************************************");
+			while (resultSet.next()) {
+				for (int i = 1; i <= columnCount; i++) {
+					System.out.print(resultSet.getString(i) + "\t");
+				}
+				System.out.println();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				resultSet.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public void batchUpdatesExample() {
+		System.out.println("From Batch Updates Example Method");
+		Connection connection = null;
+		Statement statement = null;
+		try {
+			connection = getConnection();
+			statement = connection.createStatement();
+			String insertQuery = "insert into emp2 values(118,'DFGH',7890.45,20)";
+			String updateQuery = "update emp2 set empBasic=empBasic+1000 where empdeptno=10";
+			String deleteQuery = "delete from emp2 where empdeptno=30;;";
+			statement.addBatch(insertQuery);
+			statement.addBatch(updateQuery);
+			statement.addBatch(deleteQuery);
+			int updateCount[] = statement.executeBatch();
+			for (int i = 0; i < updateCount.length; i++) {
+				System.out.println("Records Updated Count :" + "Query Number:"
+						+ i + ":" + updateCount[i]);
+			}
+			connection.commit();
+		} catch (SQLException e) {
+
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void dataBaseMetaDataExample() {
+		System.out.println("From DataBaseMetaData Example");
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			DatabaseMetaData dbmd = connection.getMetaData();
+			System.out.println(dbmd.getDatabaseProductName());
+			System.out.println(dbmd.getDatabaseProductVersion());
+			System.out.println(dbmd.getDriverName());
+			System.out.println(dbmd.getDriverMinorVersion());
+			System.out.println(dbmd.getDriverMajorVersion());
+			System.out.println(dbmd.getSQLKeywords());
+			System.out.println(dbmd.getStringFunctions());
+			System.out.println(dbmd.getNumericFunctions());
+			System.out.println(dbmd.getSystemFunctions());
+			System.out.println(dbmd.supportsBatchUpdates());
+			System.out.println(dbmd.supportsStoredProcedures());
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+public class StatementInterfaceDemo {
+	public static void main(String[] args) {
+		StatementExample example = new StatementExample();
+		// boolean registrationFlag = example.registerEmployee();
+		// if (registrationFlag) {
+		// System.out.println("Employee Record Inserted Successfully");
+		// }
+
+		// example.getEmployeeDetails();
+		// example.getEmployeeDetailsByRSMD();
+		// example.batchUpdatesExample();
+
+		example.dataBaseMetaDataExample();
+	}
+}
+=========================================================================================================================
+Session 4: 	>>	Statement Vs PreparedStatement
+			>> 	PreparedStatement Interface Examples
+			>> 	CallableStatement Interface Examples
+=========================================================================================================================
+		
+SQL >> insert into emp2 values(111,'Apple',9000,10);
+			||
+			||
+			||
+			||					Oracle
+		[ Data Base Engine ] ===================> Data Base   Emp2 Table
+			||
+			||
+			||input=String SQLQuery
+		[Query Tokenization Phase]
+			||Output= Stream of String Tokens
+			||
+			||input=Stream of String Tokens
+		[Query Parsing Phase]
+			||output= Parse Tree
+			||
+			||
+		[Query Optimization Phase]
+			||
+			||
+			||
+		[Query Execution Phase]
+
+
+What My Requirement Is? I want to execute same query repeatedly?
+
+int eno=0;
+String ename=null;
+double ebasic=0.0;
+int deptNo=0;
+Statement statement=connection.createStatement();
+String sqlQuery="insert into emp2 values("+eno+",'"+ename+"',"+ebasic+","+deptNo")";
+int updateCount=0;
+Scanner sc=new Scanner(System.in);
+	for(int i=0;i<10;i++){
+	eno=sc.nextInt();
+	ename=sc.next();
+	ebasic=sc.nextDouble();
+	deptNo=sc.nextInt();
+	statement.executeUpdate(sqlQuery);
+	updateCount++;	
+	}
+Syso(updateCount); // Result
+
+10 * 4 T 	= 40 T
+1000 * 4 T 	=4000 T
+100000 * 4 T= 400000 T
+
+1) Here Performance Issue and Writing
+ Query Is Some What Complex When We are Using Statement Interface.
+
+
+String sqlQuery="insert into emp2 values(?,?,?,?)";
+
+PreparedStatement pstStatement=connection.prepareStatement(sqlQuery);
+
+Note:
+// Pre Compiled Query
+
+[ ?,?,?,? ] Query Plan / Buffer
+
+int updateCount=0;
+Scanner sc=new Scanner(System.in);
+
+	for(int i=0;i<10;i++){
+	
+	int eno=sc.nextInt();
+	 String ename=sc.next();
+	double ebasic=sc.nextDouble();
+	int deptNo=sc.nextInt();
+		pstStatement.setInt(1,eno);
+		pstStatement.setString(2,ename);
+		pstStatement.setDouble(3,ebasic);
+		pstStatement.setInt(4,deptNo);
+		pstStatement.executeUpdate();
+		updateCount++;	
+	}
+Syso(updateCount); // Result
+
+
+
+ 1 * 4 T= 4 T
+
+
+Internal :
+
+Query Plan is a Temporary Buffer
+
+pstStatement [ ?,?,? ]
+
+
+
+
+PreparedStatementExample.java:
+
+
+package com.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+class PstExample {
+	private Connection getConnection() {
+		Connection con = null;
+		try {
+			// Load And Register The Driver
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager
+					.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+							"system", "training"); // Step -2
+			con.setAutoCommit(false);
+			System.out.println("Connection Success");
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+	public int registerEmployee() {
+		String methodName = "registerEmployee()";
+		System.out.println("Method Invoked:" + methodName);
+
+		Connection connection = null;
+		PreparedStatement pstStatement = null;
+		int recordCount = 0;
+		try {
+			connection = getConnection();
+			String insertQuery = "insert into emp2 values(?,?,?,?)";
+			pstStatement = connection.prepareStatement(insertQuery); // Step -3
+			// Step -4 Write And Execute SQL Query
+			// insert into emp2 values(111,'AAA',9000.34,10);
+			Scanner sc = new Scanner(System.in);
+			for (int i = 0; i < 10; i++) {
+				System.out.println("Enter Employee Number");
+				int empNumber = sc.nextInt();
+				System.out.println("Enter Employee Name");
+				String empName = sc.next();
+				System.out.println("Enter Employee Basic");
+				double empBasic = sc.nextDouble();
+				System.out.println("Enter Employee Dept Number");
+				int empDeptNumber = sc.nextInt();
+				pstStatement.setInt(1, empNumber);
+				pstStatement.setString(2, empName);
+				pstStatement.setDouble(3, empBasic);
+				pstStatement.setInt(4, empDeptNumber);
+				int updateCount = pstStatement.executeUpdate();
+				if (updateCount > 0) {
+					recordCount++;
+				}
+			}
+			connection.commit();
+		} catch (SQLException e) {
+			try {
+				recordCount = 0;
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} catch (InputMismatchException e) {
+			try {
+				recordCount = 0;
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				// Step -5
+				// Closing the Resources
+				pstStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		System.out.println("Response From The Method:" + methodName + ":"
+				+ recordCount);
+
+		return recordCount;
+	}
+
+	public void getEmployeeDetails() {
+
+		String methodName = "getEmployeeDetails()";
+		System.out.println("Method Invoked:" + methodName);
+
+		Connection connection = null;
+		PreparedStatement pstStatement = null;
+		ResultSet resultSet = null;
+		try {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter Dept Number");
+			int empDeptNumber = sc.nextInt();
+			connection = getConnection();
+			String selectQuery = "select *from emp2 where empdeptno=?";
+			pstStatement = connection.prepareStatement(selectQuery);
+			pstStatement.setInt(1, empDeptNumber);
+			resultSet = pstStatement.executeQuery();
+			System.out.println("Emp Number" + "\t" + "Emp Name" + "\t"
+					+ "Emp Sal" + "\t" + "Dept Number");
+			while (resultSet.next()) {
+				System.out.print(resultSet.getInt("empno") + "\t");
+				System.out.print(resultSet.getString(2) + "\t");
+				System.out.print(resultSet.getDouble(3) + "\t");
+				System.out.print(resultSet.getInt(4));
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				resultSet.close();
+				pstStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+}
+
+public class PreparedStatementExample {
+	public static void main(String[] args) {
+		PstExample ex = new PstExample();
+		ex.getEmployeeDetails();
+		ex.registerEmployee();
+	}
+}
+PL/SQL: Stored Procedures And Functions
+
+Schema Objects:
+
+	>> Table
+	>> Constraint
+	>> Index
+	>> Sequence
+	>> Views
+	>> Synonyms
+	
+PL /SQL:
+		>> Stored Procedures
+		>> Functions
+		>> Packages
+		>> Cursors
+		>> Triggers
+		etc..
+		
+>> What Do You Mean By Connection Pooling ?
+>> Example Program ?
+
+getSal.sql:
+===========
+>> IN Type Parameters
+>> OUT Type Parameters
+>> IN OR OUT Type Parameters
+
+create or replace procedure getSal(empno IN number,salary OUT number)
+as
+BEGIN
+select basic into salary from emp2 where eno=empno;
+END getSal;
+/
+
+
+getAvg.sql:
+===========
+create or replace function getAvg(no1 number,no2 number)return number
+as
+sal1 number;
+sal2 number;
+BEGIN
+select basic into sal1 from emp2 where eno=no1;
+select basic into sal2 from emp2 where eno=no2;
+return (sal1+sal2)/2;
+END getAvg;
+
+
+
+CallableStatementDemo.java:
+
+
+package com.jdbcex;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Types;
+
+class CstExample {
+	private Connection connection;
+	private CallableStatement cstStatement;
+
+	private Connection getConnection() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection = DriverManager
+					.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
+							"System", "Training");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return connection;
+	}
+
+	public void procedureExample() {
+		try {
+			connection = getConnection();
+			cstStatement = connection.prepareCall("{ call getSal(?,?) }");
+			cstStatement.setInt(1, 501);
+			cstStatement.registerOutParameter(2, Types.DOUBLE);
+			cstStatement.execute();
+			System.out.println("Employee Salary:" + cstStatement.getDouble(2));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				cstStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void functionExample() {
+		try {
+			connection = getConnection();
+			cstStatement = connection.prepareCall("{?=call getAvg(?,?) }");
+			cstStatement.setInt(2, 501);
+			cstStatement.setInt(3, 115);
+			cstStatement.registerOutParameter(1, Types.DOUBLE);
+			cstStatement.execute();
+			System.out.println("Average Salary:" + cstStatement.getDouble(1));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				cstStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+public class CallableStatementDemo {
+	public static void main(String[] args) {
+		CstExample cst = new CstExample();
+		cst.procedureExample();
+		cst.functionExample();
+	}
+}
+
+
+=========================================================================================================================
+Session 5: 	>>	Employee Management System Case Study
+		>> 	Exception Handling		=========================================================================================================================
+
+
+1) Register Employee Module
+
+	===> UserMainCode Class
+
+		====> RegistrationController
+			 [ I Want To Read Employee Details From The Keyboard 
+				after i will contact model components ]
+
+		====> RegistrationBO
+
+			[ Validating the Data before registring into the system ]
+
+		====> EmployeeDAO
+
+			[ JDBC Logic for Data Persistance ]
+
+		=====> EmployeeVO [Transfer Object / Value Object Design Pattren]
+
+		====> EMSException [ SQLException ]
+
+		====> EMSBusinessException  
+
+2) Display Employee's List
+
+3) Search Employee 
+
+4) Update Employee
+
+5) Delete Employee
+
+
+******************
+web applications make it multilingual
+resource bundke
+anything you do fetdh thariugh a property file
+i18N
+  --Resource Bundle
+   --Properties
+    --Key/value
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

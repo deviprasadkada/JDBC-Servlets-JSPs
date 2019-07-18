@@ -1,0 +1,31 @@
+Web Technologies
+-----------------
+
+samplewebapp
+	- WebContent
+		- *.html
+		- *.jsp
+		- style folder
+			- *.css
+		- script folder
+			- *.js
+		- images
+			- *.png / .gif
+		- WEB-INF
+			- web.xml
+			- *.tld
+			- *.properties
+			- classes folder
+				- packages
+					- *.class
+			- lib folder
+				- *.JAR
+	- src
+		- source packages
+			- *.java
+				- POJO, Controllers, Service, DAO, Servlets
+		- *.xml
+		- *.properties / *.json / *.txt
+	- pom.xml
+
+

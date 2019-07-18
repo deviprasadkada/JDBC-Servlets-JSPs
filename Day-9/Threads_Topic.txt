@@ -1,0 +1,100 @@
+=================
+Multi-Threading:
+=================
+How you will differentiate a process and a Thread?
+
+Java Buzz Words:
+		1) Simple
+		2) Platform Independent
+		3) Architectural Neutral
+		4) Portable
+		5) Multi-Threaded
+		6) High Performance
+		7) Robust
+		8) Distributed
+		9) Interpreted
+		10) Dynamic
+		11) Networked
+		12) Secured
+		13) Object Oriented 
+				1) Class
+				2) Object
+				3) Data Abstraction
+				4) Encapsulation
+				5) Inheritance
+				6) Polymorphisam
+				7) Dynamic Binding
+				8) Message Passing
+				
+>> Converting initial letter to capital case this is 
+	one flow in the Word Process
+>> Spell Checker is also working this 
+	is a second flow in the same word process
+
+>> Thread is a flow of control in a process.
+
+>> Threads will run parallelly.
+
+>> Java is Multi-Threading Application.
+
+>> Process Is Heavy Weight Componenet
+	And Thread is a light weight component.
+
+MainClass.java:
+================
+	class MainClass{
+		psvm(String args[]){
+			System.out.println("Hello");
+		}
+	}
+How You Will Justify Java is a Multi-Threading Application?
+
+>> ForeGround Threads
+	Main Method Is A ForeGround Thread
+
+>> BackGround Threads (Deamon Threads)
+		>> Is used to give the services to ForeGround Threads.
+		
+		>> Garbage Collector Will Run Automatically At BackGround,
+			It is de allocating the memory resources 
+			which are all not required at that point of time.
+
+>> Is it possible to write User Defined Deamon Threads?
+	Yes, it is possible.
+	t1 ==> Thread
+	t1.setDeamon(true); // boolean
+	
+	I Have Created One Thread
+	thread1.start();
+	thread1.setDeamon(true);	// You Will Get Runtime Error.
+	
+	Before starting the thread you need to call thread1.setDeamon(true);
+	
+What are all the different ways to Create A Thread?
+
+>> By Extending The ThreadClass
+
+>> By Implementing Runnable Interface
+
+>> By Using Concurrent Packages
+
+	iocContainer.getBean("employeeBo");
+Note:
+=====
+	Thread1Class	===> T1		==> Green Blocks
+	
+	Thread2Class	===> T2		==> Red Blocks
+	
+	t1.start();
+	t2.start();
+
+		>> Will execute Parallelly
+			GreenBlock
+			RedBlock
+			RedBlcok
+			GreenBlock
+			RedBlcok
+			GreenBlock
+			GreenBlock
+			RedBlcok
+				

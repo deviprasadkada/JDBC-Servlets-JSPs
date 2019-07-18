@@ -1,0 +1,93 @@
+Web Technologies
+-----------------
+
+Client side
+	- HTML5
+	- CSS
+	- JavaScript
+	- jQuery
+	- AngularJS
+	- ReactJS
+	- ExtJS
+	- Vue JS
+	- Ember JS
+	- Backbone JS
+
+Server side
+	- Servlets
+	- JSP
+	- NodeJS
+	- EJB
+	- RMI
+	- Socket Programming
+	- JMS
+
+
+
+Servlet
+---------
+
+A server side progam which accepts HTTP requests from the broswer, processes on the server side & sends back the response to the browser only in the form of Dynamic HTML Web Page is called as a Servlet.
+
+javax.servlet
+	- Servlet
+	- ServletRequest
+	- ServletReponse
+	- ServletContext
+	- ServletConfig
+
+javax.servlet.http
+	- HttpServlet
+	- HttpServletRequest
+	- HttpServletResponse
+	- HttpSession
+	- Cookie
+
+Web Container
+	- Web Server
+		- Tomcat
+		- JavaWebServer
+		- Jetty
+	- Application Server
+		- Glassfish
+		- JBoss
+		- WebSphere
+		- WebLogic
+		- Oracle Enterprise Server
+
+Servlet Life cycle
+	- init()
+	- service()
+	- destroy()
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

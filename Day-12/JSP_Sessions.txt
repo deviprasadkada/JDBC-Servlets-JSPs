@@ -1,0 +1,1237 @@
+---------------------------------------------------------------------------------------------------------------------------------
+JSP Session 1:
+---------------------------------------------------------------------------------------------------------------------------------
+
+	1) If We want to develope Web Application Purely on Servlets Technology, 
+		That means we need complete knowledge on Java Technology.
+
+		If We want to develope Web Application Purely 
+		on JSP we need minimum knowledge on Java.
+
+	2) Servlets are very good at the time of pickuping the request, 
+		and processing the request.
+
+		Jsp are very good at the time of delivering the dynamic response 
+		to the client with very good look and feel.
+
+	3) In Servlets there are no seperate tags given for presentation logic 
+		and for business logic,
+		everything we have to embed in side of either doGet or doPost Methods.
+
+	      We are having seperate tags 
+		  for both presentation logic and business logic.
+
+		Presentation Logic : We can embed HTML,CSS, Java Script directly.
+
+		Business Logic	   : We have JSP Tags  
+					[ Page Directives, JSP Scripting Elements, JSP Actions ]
+
+	4) In case of servlet for any modifications, 
+		we need to re compile, re deploy, and execute the servlet application.
+
+		Jsp's are said to be auto compiled and auto saved technology,
+			just we need to refersh the application.
+
+	5) MVC Desgin Pattren:
+
+		M - Model Part [ Value Objects, BO classes, DAO Classes ]
+
+		V - View Part  [ JSP's We are using as View Components ]
+
+		C - Controller [ Servlets We are using as Controller Components ]
+
+
+	 Struts 1.X ==> MVC Frame Work ===> ActionServlet ==> Front - Controller
+
+	 Struts 2.X ==> MVC Frame Work ===> FilterDispatcher==> Front - Controller
+
+	 Spring Web MVC 	       	    ===> DispatcherServlet===> Front - Controller
+
+
+Note:
+	JSP ==> Java Server Pages these are direct extensions to servlet-api.
+
+
+				    Webcomponent:
+
+					WEB-INF/lib, web.xml	==> Private Area
+					Reg.html
+					Reg.jsp
+
+			Request
+Reg.html  ===========> Reg.jsp ===> Reg_jsp.java===>Reg_jsp.class==> JSP Life Cycle
+
+					
+<form action="./Reg.jsp" method="post">
+empNumber
+empName
+empJob
+
+[ submit  ]
+
+</form>
+
+
+JSP Life Cycle Phases:
+
+	1) Translation Phase
+
+	2) Request Processing Phase
+
+		JSP Life Cycle:  jspInit(), _jspService(request,response),jspDestroy()
+
+
+
+Interfaces:
+
+javax.servlet.jsp
+	
+	JspPage Interface ====> jspInit(), jspDestroy()
+
+	HttpJspPage Interface===> _jspService(request,response)
+
+
+								JSP Components
+	========================================================================================
+	1) JSP Directives		2) JSP Scripting Elements	3) JSP Actions
+
+	>> Page [ 12 attributes ]	>> JSP Declaratives		>> Standard Actions
+
+	>> Include					>> JSP Scriptlets		>> Custom Actions
+										
+	>> Taglib					>> JSP Expressions		>> Classic Tags JSP 1.0
+														>> Simple Tags	JSP 2.0
+								>> JSP Comments			>> JSTL && EL 
+
+
+JSP Implicit Objects:
+
+	There are were 9 implicit objects were there.
+
+	1) request	6) application
+	
+	2) reponse	7) pageContext
+
+	3) out		8) exception
+
+	4) page		9) session
+
+	5) config
+
+
+JSP Scopes:								Servlet Scopes:
+
+	1) page Scope					===> ServletConfig Scope
+
+	2) request Scope				===> HttpRequest Scope
+
+	3) application Scope			====> ServletContext Scope
+
+	4) session Scope				===> HttpSession Scope
+
+>> java.lang.*
+>> javax.servlet.*
+>> javax.servlet.http.*
+
+
+Note: These three packaages we can use directly without importing the pacakges
+ 
+      What are all the concepts we used in Servlets we can use in jsp also with the same syntax's.
+
+
+Syntax:
+
+
+	Scripting Elements:
+
+	>> JSP Declartion:
+
+		<%! // Declaring Varaibles
+		    // Declaring and Defining User Defined Methods
+	
+		    // Over ridding of jspInit() and jspDestroy()
+
+		%>
+	Note: 
+
+	>> JSP Scriptlet
+
+		<%
+
+			// Here we are writing the Business Logic
+		%>
+
+	>> JSP Expression
+
+		<%= expression %>
+
+		 If we want to print the expression or 
+	varaible value outside of scriptlet scope
+
+	>> JSP Comments.
+
+
+JSP Directives:
+
+1) page  ===> it is telling the present jsp page characterstics..
+
+		12 attributes
+
+2) include
+
+3) taglib ==> custom tags level
+
+
+--------------------------
+Example1:
+-------------------------
+
+Form.html:
+---------
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>First Example</title>
+</head>
+<body bgcolor="lightgreen">
+<form name="f1" method="post" action="./FirstExample.jsp">
+<table border="1" align="center">
+<tr><td>Employee Number</td><td><input type="text" name="empNumber"/></td></tr>
+<tr><td>Employee Name</td><td><input type="text" name="empName"/></td></tr>
+<tr><td>Employee Salary</td><td><input type="text" name="empSalary"/></td></tr>
+<tr><td>Employee Dept Number</td><td><input type="text" name="empDeptNo"/></td></tr>
+<tr><td><input type="submit" value="Register"/></td><td><input type="reset" value="Reset"/></td></tr>
+
+</table>
+</form>
+</body>
+</html>
+
+-------------------------
+FirstExample.jsp:
+-------------------------
+
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>First Example JSP</title>
+</head>
+<body>
+<%!
+	Connection connection=null;
+	PreparedStatement pstStatement=null;
+	public void jspInit(){
+		System.out.println("Inside Of jspInit Method");
+		try{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","System","Training");
+			String insertQuery="insert into emp2 values(?,?,?,?)";
+			 pstStatement=connection.prepareStatement(insertQuery);
+			
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		 
+	}
+
+	public void jspDestroy(){
+		System.out.println("Inside Of jspDestroy Method ");
+		try{
+			pstStatement.close();
+			connection.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+
+%>
+<%
+	System.out.println("Inside Of Scriptlet");
+	int empNumber=Integer.parseInt(request.getParameter("empNumber"));
+	String empName=request.getParameter("empName");
+	double empSalary=Double.parseDouble(request.getParameter("empSalary"));
+	int empDeptNo=Integer.parseInt(request.getParameter("empDeptNo"));
+	try{
+		pstStatement.setInt(1, empNumber);
+		pstStatement.setString(2, empName);
+		pstStatement.setDouble(3, empSalary);
+		pstStatement.setInt(4, empDeptNo);
+		int updateCount=pstStatement.executeUpdate();
+		if(updateCount>0){
+			out.println("Employee Record Inserted Successfully");
+		}
+
+	}catch(SQLException e){
+		e.printStackTrace();
+	}
+	
+%>
+<br>Employee Number:<%=empNumber %>
+</body>
+</html>
+
+
+------------------
+Example 2:
+------------------
+Form1.htl:
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="lightgreen">
+
+<form name="f1" method="post" action="./test.jsp">
+
+<table>
+<tr><td>User Id</td><td><input type="text" name="userId"/></td></tr>
+<tr><td>User Pwd</td><td><input type="password" name="userPwd"/></td></tr>
+<tr><td><input type="submit" value="Login"/></td><td><input type="reset" value="Reset"/></td></tr>
+</table>
+</form>
+</body>
+</html>
+
+
+test.jsp:
+---------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="lightgreen">
+
+<%!
+	String userId=null;
+	String userPwd=null;
+	public boolean validateUserDetails(String userId,String userPwd){
+		boolean flag=false;
+		this.userId=userId;
+		this.userPwd=userPwd;
+		if("urtrainer.java@gmail.com".equals(userId) && "Challa@123".equals(userPwd))
+		{
+			flag=true;
+		}
+		return flag;
+	}
+%>
+<%
+	String id=request.getParameter("userId");
+	String pwd=request.getParameter("userPwd");
+	boolean result=validateUserDetails(id, pwd);
+	if(result){
+%>
+ <font color="red" size="4">Welcome To The User:<%=userId %></font>
+<% } %>
+</body>
+</html>
+
+
+
+--------------------------------------
+Jsp Beans:
+--------------------------------------
+
+EmployeeBean.java:
+
+package com.beans;
+
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class EmployeeBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int empNumber;
+	private String empName;
+	private double empSalary;
+	private int empDeptNumber;
+	public int getEmpNumber() {
+		return empNumber;
+	}
+	public void setEmpNumber(int empNumber) {
+		this.empNumber = empNumber;
+	}
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public double getEmpSalary() {
+		return empSalary;
+	}
+	public void setEmpSalary(double empSalary) {
+		this.empSalary = empSalary;
+	}
+	public int getEmpDeptNumber() {
+		return empDeptNumber;
+	}
+	public void setEmpDeptNumber(int empDeptNumber) {
+		this.empDeptNumber = empDeptNumber;
+	}
+	
+	private Connection getConnection(){
+		Connection connection=null;
+		try{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","System","Training");
+			
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return connection;
+	}
+	public boolean registerEmployee(){
+		boolean registrationFlag=false;
+		Connection connection=null;
+		PreparedStatement pstStatement=null;
+		try{
+			String insertQuery="insert into emp2 values(?,?,?,?)";
+			connection=getConnection();
+			pstStatement=connection.prepareStatement(insertQuery);
+			pstStatement.setInt(1, empNumber);
+			pstStatement.setString(2, empName);
+			pstStatement.setDouble(3, empSalary);
+			pstStatement.setInt(4, empDeptNumber);
+			int updateCount=pstStatement.executeUpdate();
+			if(updateCount>0){
+				registrationFlag=true;
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+				try{
+						if(pstStatement!=null && connection !=null){
+								pstStatement.close();
+								connection.close();
+						}
+				}catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+		}
+		return registrationFlag;
+	}
+}
+
+------------------
+Insert2.html:
+-----------------
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>First Example</title>
+</head>
+<body bgcolor="lightgreen">
+<form name="f1" method="post" action="./Insert2.jsp">
+<table border="1" align="center">
+<tr><td>Employee Number</td><td><input type="text" name="empNumber"/></td></tr>
+<tr><td>Employee Name</td><td><input type="text" name="empName"/></td></tr>
+<tr><td>Employee Salary</td><td><input type="text" name="empSalary"/></td></tr>
+<tr><td>Employee Dept Number</td><td><input type="text" name="empDeptNo"/></td></tr>
+<tr><td><input type="submit" value="Register"/></td><td><input type="reset" value="Reset"/></td></tr>
+
+</table>
+</form>
+</body>
+</html>
+
+--------------------
+Insert2.jsp
+--------------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@page import="com.beans.EmployeeBean" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+		int empNumber=Integer.parseInt(request.getParameter("empNumber"));
+		String empName=request.getParameter("empName");
+		double empSalary=Double.parseDouble(request.getParameter("empSalary"));
+		int empDeptNo=Integer.parseInt(request.getParameter("empDeptNo"));
+		EmployeeBean bean=new EmployeeBean();
+		bean.setEmpNumber(empNumber);
+		bean.setEmpName(empName);
+		bean.setEmpSalary(empSalary);
+		bean.setEmpDeptNumber(empDeptNo);
+	boolean registrationFlag=bean.registerEmployee();
+	if(registrationFlag){
+%>
+<font color="red" size="4">Employee Record Inserted Successfully:<%=bean.getEmpName() %></font>
+<%} %>
+</body>
+</html>
+
+======================================================================================================================================
+
+JSP Actions: >> Standard Actions
+	
+	     >> Custom Actions
+======================================================================================================================================
+
+Jsp Standard Actions:
+
+	1) <jsp:useBean>
+		
+		<jsp:setProperty>
+		<jsp:getProperty>
+
+	2) <jsp:include>
+	
+	   <jsp:forward>
+
+		<jsp:param>
+
+	3) <jsp:declaration>   </jsp:declaration>
+
+	   <jsp:scriptlet>	</jsp:scriptlet>
+
+	   <jsp:expression>	</jsp:expression>
+
+	4) <jsp:plugIn>	
+
+	   <jsp:params>
+	
+	   <jsp:fallBack>
+
+
+Syntax:
+
+	<jsp:useBean>
+
+class
+
+type
+
+bean
+
+scope
+
+<jsp:useBean 	id="bean"   class="com.beans.EmployeeBean" type="com.beans.EmployeeBean" scope="session" /> 
+
+<jsp:setProperty name="bean" property="empName" />
+
+
+<jsp:setProperty name="bean" property="*" />
+
+<jsp:getProperty name="bean" property="empNumber" />
+
+--------------
+Insert3.html:
+-------------
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>First Example</title>
+</head>
+<body bgcolor="lightgreen">
+<form name="f1" method="post" action="./Insert3.jsp">
+<table border="1" align="center">
+<tr><td>Employee Number</td><td><input type="text" name="empNumber"/></td></tr>
+<tr><td>Employee Name</td><td><input type="text" name="empName"/></td></tr>
+<tr><td>Employee Salary</td><td><input type="text" name="empSalary"/></td></tr>
+<tr><td>Employee Dept Number</td><td><input type="text" name="empDeptNo"/></td></tr>
+<tr><td><input type="submit" value="Register"/></td><td><input type="reset" value="Reset"/></td></tr>
+
+</table>
+</form>
+</body>
+</html>
+
+-------------------
+Insert3.jsp
+-------------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<jsp:useBean id="employeeBean" class="com.beans.EmployeeBean" type="com.beans.EmployeeBean" scope="session" ></jsp:useBean>
+<jsp:setProperty property="*" name="employeeBean"/>
+<%
+boolean registrationFlag=employeeBean.registerEmployee();
+if(registrationFlag){
+%>
+<font color="red" size="4">Employee Record Inserted Successfully:<jsp:getProperty property="empName" name="employeeBean"/></font>
+<%} %>
+</body>
+</html>
+
+
+---------------------------
+
+EmployeeBean.java:
+----------------------------
+
+package com.beans;
+
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class EmployeeBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int empNumber;
+	private String empName;
+	private double empSalary;
+	private int empDeptNumber;
+	public int getEmpNumber() {
+		return empNumber;
+	}
+	public void setEmpNumber(int empNumber) {
+		this.empNumber = empNumber;
+	}
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public double getEmpSalary() {
+		return empSalary;
+	}
+	public void setEmpSalary(double empSalary) {
+		this.empSalary = empSalary;
+	}
+	public int getEmpDeptNumber() {
+		return empDeptNumber;
+	}
+	public void setEmpDeptNumber(int empDeptNumber) {
+		this.empDeptNumber = empDeptNumber;
+	}
+	
+	private Connection getConnection(){
+		Connection connection=null;
+		try{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","System","Training");
+			
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return connection;
+	}
+	public boolean registerEmployee(){
+		boolean registrationFlag=false;
+		Connection connection=null;
+		PreparedStatement pstStatement=null;
+		try{
+			String insertQuery="insert into emp2 values(?,?,?,?)";
+			connection=getConnection();
+			pstStatement=connection.prepareStatement(insertQuery);
+			pstStatement.setInt(1, empNumber);
+			pstStatement.setString(2, empName);
+			pstStatement.setDouble(3, empSalary);
+			pstStatement.setInt(4, empDeptNumber);
+			int updateCount=pstStatement.executeUpdate();
+			if(updateCount>0){
+				registrationFlag=true;
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		finally{
+				try{
+						if(pstStatement!=null && connection !=null){
+								pstStatement.close();
+								connection.close();
+						}
+				}catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+		}
+		return registrationFlag;
+	}
+}
+-------------------------------------
+
+FashionShow.html:
+------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>First Example</title>
+</head>
+<body bgcolor="lightgreen">
+<form name="f1" method="post" action="./Home.jsp">
+<table border="1" align="center">
+
+<tr><td>User Name</td><td><input type="text" name="userName"/></td></tr>
+<tr><td>User Age</td><td><input type="password" name="userAge"/></td></tr>
+<tr><td><input type="submit" value="Register"/></td><td><input type="reset" value="Reset"/></td></tr>
+</table>
+</form>
+</body>
+</html>
+
+Home.jsp:
+---------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<body>
+<%
+	String userName=request.getParameter("userName");
+	int userAge=Integer.parseInt(request.getParameter("userAge"));
+	if(userAge>18 && userAge<30){
+%>
+
+<jsp:forward page="./ValidUser.jsp">
+<jsp:param value="1" name="sampleValue"/>
+</jsp:forward>
+  
+<%}
+	else{
+	%><jsp:forward page="./InvalidUser.jsp"></jsp:forward>
+	<%} %>
+</body>
+</html>
+
+
+Logo.jsp:
+----------
+
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor='lightgreen'>
+<%
+	Date d=new Date();
+	SimpleDateFormat format=new SimpleDateFormat("dd-MM-yyyy");
+	String myDateStyle=format.format(d);
+%>
+<font color='red' size='5'>
+<hr>
+Welcome To ABC Phasion Show:<%=myDateStyle %>
+<hr>
+</font>
+</body>
+</html>
+
+Footer.html:
+------------
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<hr>
+Copy Right@ABC Show 2014-2015...
+<hr>
+</body>
+</html>
+
+
+ValidUser.jsp:
+---------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<jsp:include page="./Logo.jsp"></jsp:include>
+<%-- <%@ include file="./Logo.jsp" %> --%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor='lightgreen'>
+<%
+	String userName=request.getParameter("userName");
+	int sampleValue=Integer.parseInt(request.getParameter("sampleValue"));
+
+%><%=userName %> :Valid User  
+  <%=sampleValue %>
+<%@ include file="./Footer.html" %>
+</body>
+</html>
+
+
+InvalidUser.jsp:
+---------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<jsp:include page="./Logo.jsp"></jsp:include>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor='lightgreen'>
+<%
+	String userName=request.getParameter("userName");
+
+%><%=userName %> : In Valid User  
+<%@ include file="./Footer.html" %>
+</body>
+</html>
+-------------------------------------------------
+
+
+						Jsp Components
+	==========================================================================
+	||				||				||
+	JSP Directives		JSP Scripting Elements			Jsp Actions	
+
+	1) Page =12 Attributes		1) Jsp Declarations		1) Standard Actions
+
+	2) include 			2) Jsp Scriptlet		2) Custom Actions
+
+	3) taglib			3) Jsp Expression
+
+					4) Jsp Comments
+
+Standard Actions:
+
+1) <jsp:useBean>
+		<jsp:setProperty>
+		<jsp:getProperty>
+
+2) <jsp:include>
+   <jsp:forward>
+		<jsp:param>
+
+3) <jsp:scriptlet> 	</jsp:scriptlet>	JSP 2.0
+   <jsp:declarative> 	</jsp:declarativet>
+   <jsp:expression>  	</jsp:expression>
+
+4) <jsp:fallBack>
+   <jsp:plugIn> 	Depricated Standard Actions
+   <jsp:params>	
+
+Note:
+
+	We need to eliminate Java Code From The JSP Pages as much as possible.
+
+		>> Jsp Actions
+
+			===> Standard Actions
+
+			===> Custom Actions
+
+Syntax:
+
+	<prefixName:customTagName [ Attributes ] >
+
+		// Body OF THE Custom Tag
+
+	</prefixName:customTagName>
+
+
+taglib syn:
+
+	<%@taglib uri="./WEB-INF/abc.tld" prefix="mytags"/>
+
+
+Custom Actions:
+
+
+1) We need a JSP Page With Custom Tag
+
+2) We need a taglib directive
+
+3) We need a  .tld file [ it is an xml file , tag library descriptor]
+
+4) We need a Tag Handler Java Class [ THC ]
+
+
+Syn:
+
+	<prefixName:customTagName [attributes]>
+
+		
+		// Custom Tag Body Content
+
+	</prefixName:customTagName>
+
+Example: 
+	<d:myDateFormat>
+		
+	</d:myDateFormat>
+
+taglib directive:
+
+	<%@ taglib uri="./WEB-INF/abc.tld"  prefix="d" >
+
+
+:JSTL,EL:
+
+Example:
+
+JSTL SQL TAGS:
+
+sqlTagsExample.jsp:
+----------------------
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<html>
+<head>
+<title>JSTL sql:query Tag</title>
+</head>
+<body>
+<sql:setDataSource var="myDataSource" driver="oracle.jdbc.driver.OracleDriver"
+     url="jdbc:oracle:thin:@localhost:1521:xe"
+     user="System"  password="Training"/>
+
+<sql:query dataSource="${myDataSource}" var="result">
+SELECT * from Emp2
+</sql:query>
+ 
+<table border="1" width="100%">
+<tr>
+<th>Emp Number</th>
+<th>Emp Name</th>
+<th>Emp Basic</th>
+<th>Emp Dept Number</th>
+</tr>
+<c:forEach var="row" items="${result.rows}">
+<tr>
+<td><c:out value="${row.empno}"/></td>
+<td><c:out value="${row.empname}"/></td>
+<td><c:out value="${row.empbasic}"/></td>
+<td><c:out value="${row.empdeptno}"/></td>
+</tr>
+</c:forEach>
+</table>
+
+</body>
+</html>
+
+-------------------------
+displayEmployeeList.jsp:
+-------------------------
+>> Core Tags, foreach example.
+
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Employees List</title>
+</head>
+<body bgcolor="lightgreen">
+<table border="1" align="center">
+<tr><th>Number</th>
+    <th>Name</th>
+    <th>Job</th>
+    <th>Boss Code</th>
+    <th>DOJ</th>
+    <th>Basic</th>
+    <th>Comm</th>
+    <th>Dept Number</th>
+</tr>  
+<c:forEach items="${requestScope.myEmpList}" var="empVO">
+<tr><td><c:out value="${empVO.empNumber}" /></td>
+    <td><c:out value="${empVO.empName}" /></td>
+    <td><c:out value="${empVO.empJob}" /></td>
+    <td><c:out value="${empVO.empBossCode}" /></td>
+    <td><c:out value="${empVO.empDoj}" /></td>
+    <td><c:out value="${empVO.empSalary}" /></td>
+    <td><c:out value="${empVO.empComm}" /></td>
+    <td><c:out value="${empVO.empDeptNumber}" /></td>
+</tr>
+</c:forEach>
+</table>
+</body>
+</html>
+
+---------------------------
+Format Tags Example:
+----------------------------
+
+dateFormatExample.jsp:
+-------------------------
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" 
+           uri="http://java.sun.com/jsp/jstl/fmt" %>
+<html>
+<head>
+  <title>JSTL fmt:dateNumber Tag</title>
+</head>
+<body>
+<h3>Number Format:</h3>
+<c:set var="now" value="<%=new java.util.Date()%>" scope="page" />
+
+<p>Formatted Date (1): <fmt:formatDate type="time" 
+            value="${now}" /></p>
+<p>Formatted Date (2): <fmt:formatDate type="date" 
+            value="${now}" /></p>
+<p>Formatted Date (3): <fmt:formatDate type="both" 
+            value="${now}" /></p>
+<p>Formatted Date (4): <fmt:formatDate type="both" 
+            dateStyle="short" timeStyle="short" 
+            value="${now}" /></p>
+<p>Formatted Date (5): <fmt:formatDate type="both" 
+            dateStyle="medium" timeStyle="medium" 
+            value="${now}" /></p>
+<p>Formatted Date (6): <fmt:formatDate type="both" 
+            dateStyle="long" timeStyle="long" 
+            value="${now}" /></p>
+<p>Formatted Date (7): <fmt:formatDate pattern="yyyy-MM-dd" 
+            value="${now}" /></p>
+</body>
+</html>
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+>> Employee Management System
+
+	>> MVC Design Pattren
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+Model View Controller :
+
+
+Model 			: BO,DAO,VO etc...
+
+View			: Html, JSP's, Java Script
+	
+Controller		: Servlets
+
+
+
+Use's:
+
+
+1) It supports Parallell Developement
+
+2) Will get loose coupling in web application.
+
+3) Application developement will be faster.
+
+4) Testing and Debugging Is Very Easy.
+
+
+Scenario:
+
+	Web Application:
+
+		>> In Future May Be A Chance He Will Change The Data Base.
+
+		>> May Be Will add few Business Requirements / Some Validation Logic
+
+		>> He need Web Pages With Good Presentation logic and it is a Graphic Centric Application.
+
+		  May be Presentation Logic May Change Frequently..
+
+
+
+>> Controller:
+
+	>> We are reading the data from request object.
+
+	>> Will do little bit data validations like NumberFormatException,DateFormat 
+
+	>> Will be setting the data to the model part (i.e ValueObjects )
+
+	>> We Are Contating the Model Part and Calling the Business Requirement Methods and will pass the input.
+
+	>> We are getting the response from the Model Components.
+
+	>> Based on the response getting from the Model Components will forward the application control to the respective View Pages
+		Along with the Dynamic Response..
+
+	>> We are handling the runtime exceptions and even will redirect the error messages to view components.
+
+
+>> Page - Controller - Page Navigation.
+
+>> Front Controller Approach
+
+>> ServletCentric Approach..
+
+
+>> Model
+
+	>> Model Part will get the request for business requirement methods.
+
+	>> Upon recieving the request from Controller, respective methods will run and returns the Response To The Controller.
+
+	>> If any Runtime Exceptions and These runtime exceptions will be thrown to the Controller.
+
+>> View
+
+	>> View Componets will get Response From The Controller
+
+	>> And Displays the Dynamic Response.
+
+	>> We need to Write JSP pages without Scriptlet Code.. [ Try to eliminate Java Code From The JSP Pages As Much As Possible ]
+
+	>> JSP pages only meant fro Display or View Purpose Only.
+
+Employee Management System:
+
+	>> Registration Module
+
+	>> Display Employee List Module.
+			display.jsp		==> Dept Number
+			displayEmpList.jsp
+			error.jsp
+
+	web.xml
+
+	DisplayController.java ==> Servlet
+	IDisplayBO.java
+	DisplayBO.java	  ==> Validation
+
+	IEmployeeDAO.java
+	EmployeeDAO.java
+	EmployeeVO.java
+
+	EMSException.java
+	EMSBusinessException.java
+
+	DBUtil.java
+
+	ErrorConstants.java
+	SQLConstants.java
+	SuccessConstants.java
+
+	LoggerInitializer.java
+
+
+	
+>> Application Should Be In Loosely Coupled Manner
+
+>> High Cohesive Nature.
+
+M ==> Model	
+		IDisplayBO.java
+		DisplayBO.java	
+		EmployeeVO.java
+		IEmployeeDAO.java
+		EmployeeDAO.java
+		EMSException.java
+		EMSBusinessException.java
+
+		DBUtil.java
+
+		ErrorConstants.java
+		SQLConstants.java
+		SuccessConstants.java
+
+		LoggerInitializer.java
+
+V ==> View
+			display.jsp		==> Dept Number
+			displayEmpList.jsp
+			error.jsp
+
+
+C ==> Controller
+			DisplayController.java ==> Servlet
+
+
+Model-1 Architecture
+
+Model-2 Architecutre 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+

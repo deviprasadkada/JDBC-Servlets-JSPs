@@ -1,0 +1,344 @@
+====
+JSP:
+====
+JSP ==> Java Server Pages
+
+WEB-INF:
+
+insert.jsp
+				1) Transalation Phase
+						
+						jsp page will be converted
+							back to servlet by the tomcat container
+							
+				2) Request Processing Phase
+							JSP Life Cycle
+									jspInit();
+									jspDestroy();
+						_jspService(HttpServletRequest request,HttpServletResponse response);
+
+>> servlet-api.jar
+>> jsp-api.jar
+
+Interfaces:
+
+javax.servlet.jsp
+	
+	JspPage Interface ====> jspInit(), jspDestroy()
+
+	HttpJspPage Interface===> _jspService(request,response)
+	
+							JSP Components
+								||
+								||
+								||
+		======================================================================================
+			||					||								||				>> JSTL
+			||					||								||				>> Expression Languge 
+		JSP Directives			JSP Scripting Elements			JSP Actions
+			>> page					>>JSP Declaratives				>> Standard Actions
+			>> include				>> JSP scriptlets				>> Custom Actions
+			>> taglib				>> JSP expressions				
+									>> JSP comments					
+			
+JSP Implicit Objects:
+=====================
+	9 implicit Objects
+	
+	1) request			4) page			7) config
+	
+	2) response			5) session		8) pageContext
+	
+	3) out				6) application	9) exception
+	
+JSP Scopes:
+===========
+	4 Scopes					Servlet Scopes
+	
+	1) page					===> ServletConfig
+	
+	2) request				===> HttpServletRequest
+	
+	3) session				===> HttpSession
+	
+	4) application			===> ServletContext
+
+
+>> java.lang.*
+>> javax.servlet.*
+>> javax.servlet.http.*
+
+
+Note: These three packaages we can use directly without importing the pacakges
+ 
+      What are all the concepts we used in Servlets we can use in jsp also with the same syntax's.
+
+
+Syntax:
+
+
+	Scripting Elements:
+
+	>> JSP Declartion:
+
+		<%! // Declaring Varaibles
+		    // Declaring and Defining User Defined Methods
+	
+		    // Over ridding of jspInit() and jspDestroy()
+		%>
+	Note: 
+
+	>> JSP Scriptlet
+
+		<%
+			// Here we are writing the Business Logic
+		%>
+
+	>> JSP Expression
+
+		<%= expression %>
+
+		 If we want to print the expression or 
+	varaible value outside of scriptlet scope
+
+	>> JSP Comments.
+
+======================================================================================================================================
+
+JSP Actions: 	>> Standard Actions
+	
+				>> Custom Actions
+======================================================================================================================================
+
+Jsp Standard Actions:
+
+	1) <jsp:useBean>
+		
+		<jsp:setProperty>
+		<jsp:getProperty>
+
+	2) <jsp:include>
+	   <jsp:forward>
+			<jsp:param>
+
+	3) <jsp:declaration>   </jsp:declaration>
+
+	   <jsp:scriptlet>	</jsp:scriptlet>	
+
+	   <jsp:expression>	</jsp:expression>
+
+	
+	
+			Depricated
+	4) <jsp:plugIn>		
+
+	   <jsp:params>
+	
+	   <jsp:fallBack>
+
+
+Syntax:
+
+	<jsp:useBean>
+
+class
+
+type
+
+id
+
+scope
+
+<jsp:useBean 	id="bean"  
+ class="com.beans.EmployeeBean" type="com.beans.EmployeeBean" scope="session" /> 
+
+<jsp:setProperty name="bean" property="empName" />
+
+
+<jsp:setProperty name="bean" property="*" />
+
+<jsp:getProperty name="bean" property="empNumber" />
+
+
+
+							Jsp Components
+	==========================================================================
+	||								||					||
+	JSP Directives		JSP Scripting Elements			Jsp Actions	
+
+	1) Page =12 Attributes		1) Jsp Declarations		1) Standard Actions
+
+	2) include 					2) Jsp Scriptlet		2) Custom Actions
+
+	3) taglib					3) Jsp Expression
+
+								4) Jsp Comments
+
+Standard Actions:
+
+1) <jsp:useBean>
+		<jsp:setProperty>
+		<jsp:getProperty>
+
+2) <jsp:include>
+   <jsp:forward>
+		<jsp:param>
+
+3) <jsp:scriptlet> 		</jsp:scriptlet>		JSP 2.0
+   <jsp:declarative> 	</jsp:declarativet>
+   <jsp:expression>  	</jsp:expression>
+
+4) <jsp:fallBack>
+   <jsp:plugIn> 	Depricated Standard Actions
+   <jsp:params>	
+
+Note:
+
+	We need to eliminate Java Code From The JSP Pages as much as possible.
+
+		>> Jsp Actions
+
+			===> Standard Actions
+
+			===> Custom Actions		
+										LoginDAO.java  ( Model )
+										( public boolean validateUser(String userName,
+																	  String userPassWord);	
+											\\
+						web.xml				 \\
+login.html ===> Request	===> LoginController.java (Controller)
+								\\
+								 \\ rd.forward(request,response);
+								  User_Profile_Page.jsp ( View )
+								  
+								  
+	Message:
+			Welcome To The User : userName Today's Date Is: 4-Apr-2018 (IST)
+			
+	Message:
+			Welcome To The User : userName Today's Date Is: 4/4/2018 (US)
+			
+			
+			DateFormat formatter=DateFormat.getDateInstance("Style",Locale);
+			system date
+			format the date
+			etc..
+			10 lines of code 
+			
+			
+ <h1> </h1> in HTML
+ <br>
+ <hr>
+ etc..
+ <body bgcolor='lightgreen'>
+
+ <font size='4'>
+	Java IS Instersting !!
+ </font>
+
+======= 
+Syntax:
+=======
+		<prefixName:customTagName [Attributes Name]>
+				// Body Of The Custom Tag
+		</prefixName:customTagName>
+		
+		Example:
+		
+		<dateStyles:userStyleDate>
+		</dateStyles:userStyleDate>
+		
+		<select name="dno">
+		<serverData:departmentList/>
+						10
+						20
+						30
+						40
+		</select>				
+
+1) We Need A Custom Tag
+	And use in the JSP Page
+	
+2) .tld (Tag Library Descriptor)
+	dateStyles.tld
+	serverData.tld
+				
+	dateStyles.tld:
+	
+				<tag>
+				<tag-name>userStyleDate</tag-name>
+				<class-name>com.marlabs.DateHandler</class-name
+				</tag>
+				
+	serverData.tld
+				<tag>
+				<tag-name>departmentList</tag-name>
+				<class-name>com.marlabs.GetAllDeptInfo</class-name
+				</tag>
+		
+3) Tag Handler Classes for Java Code to be executed for the tag's requirements.
+
+4) @taglib directive syntax's in jsp page.
+
+User_Profile_Page.jsp
+
+	<%@taglib 	uri="./WEB-INF/dateStyles.tld" prefix="dateStyles">
+	<%@taglib 	uri="./WEB-INF/serverData.tld" prefix="serverData">
+
+	==>	<dateStyles:userStyleDate>
+		</dateStyles:userStyleDate>
+
+		<select name="dno">
+		<serverData:departmentList/>
+						10
+						20
+						30
+						40
+		</select>		
+
+
+Tag Handler Classes:
+===================
+	1) servlet-api.jar
+	2) jsp-api.jar
+	
+java.lang.*;	
+javax.servlet.*;
+javax.servlet.http.*;
+
+  To packages are default, we no need to import
+	
+	javax.servlet.jsp.tagext package is needed.
+	
+JSTL:
+=====
+>> JSP Standard Tag Library
+		Which was designed on the basis of custom actions
+		
+>> Core Tags
+
+>> Formatting tags
+
+>> SQL tags
+
+>> XML tags
+
+>> JSTL Functions
+
+>> All Frame Works are come up with their own tag library.
+		Springs 		- Its Own Tag Library
+		Struts 1.x		- Its Own Tag Library
+			   2.x		- Its Own Tag Library
+
+
+
+
+
+
+
+
+
+
+
+
+

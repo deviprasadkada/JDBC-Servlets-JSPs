@@ -1,0 +1,66 @@
+JDBC
+---------
+
+Types of Drivers
+- JDBC-ODBC Bridge
+- Native JDBC Driver
+- All Java JDBC Net Driver
+- Native Protocol All Java JDBC
+
+Source			Class				JDBC			ODBC				DB
+(.java)			(byte code)
+
+
+java.sql
+	- DriverManager
+		- Connection getConnection("","", "")
+	- Connetion
+		- Statement createStatement()
+		- PreparedStatement prepareStatement()
+		- CallableStatement prepareCall()
+
+	- Statement
+		- boolean execute() - DDL
+		- int executeUpdate() - DML
+		- ResultSet executeQuery() - Select
+
+	- ResultSet
+		- next()
+		- getString()
+		- getDate()
+		- getInt()
+		- getObject()
+		- getDouble()
+		- ResultSetMetaData getMetaData()
+	- ResultSetMetaData
+		- getColumnCount()
+		- getColumnName()
+		- getColumnType()
+
+	- PreparedStatement
+		- setString()
+		- setInt()
+		- setDouble()
+		- 
+	- CallableStatement
+	  	- setString()
+		- setInt()
+		- setDouble()
+		- registerOutParameter()
+		- getInt()
+	- Types
+		- INTEGER
+		- VARCHAR
+		- DATE
+		- DOUBLE
+	- DatabaseMetaData
+javax.sql
+
+Batch Updates
+Transactions
+Scrollable ResultSet
+
+
+
+
+

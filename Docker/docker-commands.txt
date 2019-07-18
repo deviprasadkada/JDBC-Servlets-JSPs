@@ -1,0 +1,59 @@
+docker images - Image ID
+docker ps - Container ID
+docker ps -a
+docker pull ubuntu:16.04
+docker pull centos
+docker run -it -d <container-id>
+docker exec -it <container-id> bash
+
+docker stop <container-id>
+docker rm <container-id>
+docker rmi <image-id>
+
+docker login
+	- username:
+	- password:
+
+docker commit <container-id> docker-repo-id/<new-image-name>
+docker commit e234e1e43670 nandakumarpurohit/test-centos-001
+
+docker push docker-repo-id/<new-image-name>
+docker push nandakumarpurohit/test-centos-001
+
+docker pull mysql:5.7
+
+docker run -it -d --name testmysqlinstance -e MYSQL_ROOT_PASSWORD=root123 -e MYSQL_DATABASE=testdb -p 3000:3306 <image-id>
+
+/usr/local/mysql/bin/mysql -h <aws-public-dns-name> -P 3000 -u root -p
+# root123
+
+
+
+
+
+
+
+exec 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

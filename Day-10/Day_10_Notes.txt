@@ -1,0 +1,455 @@
+=======
+Day-10:
+=======
+Client		:	
+				Browser Software
+Protocol	:	Http Protocol
+				Ideal Properties?
+				
+					1) Connection Less Nature
+					
+					2) Stateless Protocol
+						Not to maintain privious requested data
+						when we are making a new request to the same application
+						or different applications.
+					
+					3) Compatible Protocol
+						Able to transfer hyper text data between client and 
+							and server.					
+ Syntax:
+ =======
+ URI /URL
+ 
+ ProtocolName://IPAddress:PortNumber://ApplicationContext//WebResourceName(Query String)
+ 
+ http://localhost:8080//InternalInformationSystem//login.jsp
+														(Query String)
+														
+														
+ Query String:
+	The collection of name and value pairs which are going to be appnded
+	at the end of URL.
+				
+Server		:
+				1) Web Server
+				
+				2) Application Server
+						>> In Built Connection Pooling
+						>> Autuentication, Security Services
+						>> Logging Services
+						>> Load Balancing 
+						
+						etc..
+				
+>> Static Response
+>> Dynamic Response
+
+		1) CGI
+			
+		2) Servlets
+		3) JSP's
+		
+			Struts, Spring etc..
+
+CGI Vs Servlets
+
+Servlets Vs JSP's
+
+Client And Server Architecure
+
+Steps To Execute First Web Application..
+
+
+CGI Technology: 
+
+>> Common Gate Way Interface
+
+>> It Was developed based on C language and Shell Scripting 
+
+>> C is a Procedural Oriented Language.
+
+>> And It was a Process Based Technology.
+
+
+
+			[
+				Employee Management System 		||
+				==========================
+	 Request@1
+Client @1 =======>		Web Resource @1		   	||	[ WR@1 == Req@1  ] 
+									Process@1
+	  WR@1
+						Web Resource @2		   	||
+	 Request@2
+Client @2=======>		..etc			   		||	[ WR@1== Req@2   ]
+													Process@2
+	WR@1
+				] CGI Container		  			||
+
+>> Process is a heavy weight componenet that means it consumes
+	 more number of system resoures.
+
+>> 1000 Requests
+
+>> What about Server Internal Memory and Process?
+
+
+Servlets:
+
+	1) Servlets Are Technology From Sun Micro Systems [ Java ]
+
+	2) Java Supports Multi Threading
+
+			[
+				Employee Management System 		||
+				==========================
+	 Request@1									==> Thread1@ Client Request@1
+Client @1 =======>		Web Resource @1		    ||	[    ] Servlet Object
+	  WR@1
+				Web Resource @2		   			||	===> Thread2@ Clinet Request@2
+	 Request@2
+Clinet @2=======>					    		||	
+	Wr@1
+				] Servlets Container	   		||
+
+
+>> Thread is a light wieght componenet and it consumes less system resources.
+Servlets Vs Jsp's:
+
+	1) If we want to develope a web application purely based on 
+		Servlets Technology then we need complete knowledge on Core Java Concepts.
+
+			Purely Jsp's: Minimum Knowledge is enough.
+
+	2) Servlets Are very good at the time pickuping the request 
+		and processing the request.
+
+		        Jsp's: Delivering The Response With Look and Feel
+
+	3) In Servlets There are no separate tags for Presentation
+		 logic and Business logic. 
+
+			Jsp's: We are having seperate tags for 
+ 			presentation logic and separate tags for business logic.
+
+	4) In Servlets for any modification in the code, 
+		we need re compilation and re deploying the servlet.
+
+			But Jsp's are Said to be auto compiled 
+			and auto loaded technology.
+
+	5) MVC - Design Pattren
+
+		M - Model	====> Core Java's, DAO, VO, BO etc..
+
+		V - View	===> Jsp's
+
+		C - Controller	===> Servlets
+
+		Struts 1.X ==> ActionServlet ===> Controller
+			       JSP Pages     ===> View
+
+		Struts 2.X ==> FilterDispatcher ==> Controller
+				JSP Pages 	===> View
+
+
+Web Applications:
+
+	1) Client And Server Architecture
+
+		>> Client
+
+		>> Protocol
+
+		>> Server
+
+URL Syntax:
+
+	ProtocolName://IP Address:portNumber//ApplicationContextName//WebResourceName(QS)
+
+	>> http://10.123.234.256:8080//EMS//Login.jsp(QS);
+
+	IP Address 	: Unique identification number over a network to identify the PC
+
+		     	Responsible: Network Adminstrator
+
+	Port Number 	: Unique Identification number given for 
+				each and every process in the system.
+
+			 Responsible: System Adminstrator
+
+	Query String 	: The Collection Of Name And Value Pairs Which 
+			are going to append at the end of the URL is Said To Be 
+			  Query String
+
+>> Ideal Properties Of A Protocol:
+
+	>> Connection Less Nature
+
+	>> Stateless Nature 
+
+	>> Compatible 
+
+>> How You Are Justifying Http Protocol statisfies stateless nature?
+
+>> Diff Between WebServer and ApplicationServer ?
+
+>> Diff Between IP Address and Port Number?
+
+>> Diff between CGI and Servlets, Servlets and JSP's?
+
+>> Tiered Architectures : 1 Tier, 2 Tier, 3 Tier etc.. N Tier 
+
+>> Logical Layers Of Enterprise Applications?
+
+		>> User Interface Layer
+
+		>> Business Logic Layer
+
+		>> Data Storage and Access Layer [ Persistance Layer ]
+
+Steps To Create A First Web Application:
+
+	1) Create A Web Application Directory Structure
+
+	2) Writing Deployement Descriptor [ web.xml ] 
+
+	3) Writing the web resources as part of your applications requirement
+
+	4) Deployee The Web Application in a Server
+
+	5) Accessing The Applications From Client Browsers
+====================
+Software Components:
+====================
+	JDK 			: 1.7 Version 
+					: Latest 1.8 Version, 2014  
+
+	Tomcat 			: 6.0 Version
+					: Latest 7.0,8.0 Servers
+
+	Oracle Software : 10 G Version
+					: 12 
+					: MYSQL, DB2...
+
+	JUNIT And LOG 4J: JUNIT 4.0
+
+	HTML 			: HTML 4.0
+					: HTML 5.0 Features and it is latest
+
+	CSS				: CSS 3.0
+
+	Java Script		: Client Side Validation, OOJS
+					  Ajax Calls etc..
+					  JQuery, BootStrap, Angular JS 1.x
+												    2.X
+													4.X 
+													etc..
+	ECLIPSE 		: Eclipse Oxygen 
+
+MVC Application		: Servlets, JSP's, JSTL, EL, J2SE
+						Oracle Data Base
+						HTML, CSS, Java Script, Angular JS, JQuery, JSON, AJAX
+
+	Project			: Course Management System
+						OR
+					Employee Management System
+
+	
+>> servlet-api.jar
+
+Servlet:
+========
+	>> Servlet is nothing but a server side object, 
+		and it is giving dynamic response for the client request.
+
+	>> Servlet is either directly or indirectly dependent on Servlet Interface.
+
+>> javax.servlet.*;
+>> javax.servlet.http.*;
+>> servlet-api.jar file
+
+	>> Servlet is nothing but an Object,
+		being available at Server Machine,
+	   capable to handle the client request, 
+	   and genarating static or dynamic response
+	   based on the underlyining java code.
+	>> And dependents on either directly or inderectly on Servlet Interface.
+	
+	
+Servlet Interface:
+==================
+5 Life Cycle Methods of Servlet Interface
+
+>> javax.servlet.*;	
+
+
+  public abstract void init(ServletConfig config)throws ServletException;		
+
+  public abstract void service(ServletRequest request,ServletResponse response)
+					throws ServletException,IOException;
+
+  public abstract ServletConfig getServletConfig()throws ServletException;
+
+  public abstract String getServletInfo();
+
+  public abstract void destroy();
+
+Interfaces:				Classes:
+
+1) Servlet				1) ServletException
+
+2) ServletRequest		2) GenericServlet Abstract Class
+
+3) ServletResponse		3) HttpServlet Abstract Class
+
+4) HttpServletRequest	4) Cookie	etc..
+
+5) HttpServletResponse
+
+6) ServletConfig
+
+7) ServletContext
+
+8) Filter
+
+9) RequestDispatcher
+
+10) HttpSession
+etc..
+
+						Servlet Interface
+							||
+							||
+						GenericServlet Abstract Class
+							||
+							||
+						HttpServlet Abstract Class
+						
+ GET 	==> doGet(request,response);
+ POST	==> doPost(request,request);
+ 
+ BIG-7 Methods
+ 
+ 1) GET Request
+ 2) POST Request
+ 3) PUT Request
+ 4) HEAD Request
+ 5) TRACE Request
+ 6) OPTIONS Request
+ 7) DELETE Request
+ 
+ 
+public class RegistrationServlet extends HttpServlet{
+
+		// Business Logic
+}						
+==========
+Life Cycle:
+==========
+>> servlet-api.jar ===> Tomcat/lib ==> servlet-api.jar, jsp-api.jar, el-api.jar..
+
+1) We are placing the servlet-api.jar file into the class path/
+  In  Otherwards will be placing this jar file in Build Path
+
+2) Servlet is an object available at server machine, 
+	and it is either directly or 
+	indirectly depends on Predefined Servlet Interface.
+
+3) import javax.servlet.*
+
+4) Servlet Interface Methods.
+
+		public abstract void init(ServletConfig config)throws ServletException;
+
+		public abstract void service(ServletRequest request,ServletResponse response)throws ServletException,IOException;
+
+		public abstract ServletConfig getServletConfig();
+
+		public abstract String getServletInfo();
+
+		public abstract void destroy();
+
+5) Yes it is possible to write the constructor inside of a servlet,
+	but the constructor sholud be public and no argument constructor.
+
+	Request [./RegistrationServlet]
+Reg.html==========>	web.xml  ===> RegistrationServlet.java
+
+					===============> If it is first request. 
+								Then Servlet Object 
+								Is Instantiated by
+								 the container.
+					================>
+
+>> Servlet Byte Code will be loaded 
+	to operational memory [ It is Called As Servlet Loading ]
+
+>> Servlet Object will be instantited by the container. 
+	[ It is Called As Servlet Instantiation ]
+
+>> As part of the life cycle
+	- init method will be called by the container.
+	[ It is Called As Servlet Initialization ]
+
+>> A Thread Will be spanned on the servlet Object 
+	-and it is trying to access service (doGet, or doPost) method.
+		
+		>> ServletRequest (HttpServletRequest)
+		
+		>> ServletResponse (HttpServletResponse)
+
+		>> For each and every thread 
+			a sepearate private run time stack will be created.  
+		
+		>> In Side Of Service(doGet, or doPost) Method 
+		We are Writing the Business Logic, 
+		As part of the business logic we are getting some dynamic response.
+		We are supposed to send this response to client machine.
+
+		>> response.setContentType("text/html");
+
+		>> PrintWriter out=response.getWriter();
+
+		>> We are establishing a logical stream between
+			our service(doGet, or doPost)  method and response objects.
+
+		>> A Stream is nothing but a flow of data between source and destination.
+
+		>> Here Source is service(doGet, or doPost) method 
+			and destination will be the response object.
+
+		>> After That Thread is reached to dead state.
+		
+		>> that response object will be directed to client browser.
+		
+Note: After response reached to client browser.
+
+	As part of the default nature of Http Protocol, 
+	the virtual protocol socket connection existed between clinet and server
+	will be destroyed.
+
+	1) Connection Less Protocol
+
+	2) Stateless nature
+
+	3) Compatible Protocol.
+
+>> What ever the request you are sending from the client 
+	it will be consider as a new request.
+
+>> Now Tomacat container wait for some time,
+	if no other request for the same Servlet, 
+	Then to maintain memory resources of server.
+
+>> Servlet De-Initialization, Servlet De-Instatiation, Servlet Un-Loading. 
+
+>> How much time the container is waiting for 
+	to De-instantiate a servlet depends on Container implementation.
+
+
+
+
+
+
+

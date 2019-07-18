@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core">
+        <h:head></h:head>
+        <h:body>
+            <h:form>
+                <h:inputText value="#{loginBean.username}"/>
+                <h:commandButton value="Set" action="#{loginBean.process()}"/>
+                
+                <h:outputLabel for="password" value="*Enter PW" />
+                <h:inputSecret id="password" value="#{loginBean.password}" required="true" 
+                requiredMessage="Password cannot be null" />
+                <h:message id="msgPw" for="password" style="color:Red;" />
+                
+            </h:form>
+        </h:body>
+    </html>
+</f:view>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head></h:head>
+        <h:body>
+            <h2>Custom Converter</h2>
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputText value="Enter your Bookmark URL" />
+                    <h:inputText id="bookmarkURL" value="#{userBean.urlBookmark}">
+                        <f:converter converterId="com.demo.bean.URLConverter" />
+                    </h:inputText>
+                    <h:message for="bookmarkURL" style="color:Red;" />
+                </h:panelGrid>
+                
+                <h:commandButton value="Submit" action="result" />
+            </h:form>
+        </h:body>
+    </html>
+</f:view>

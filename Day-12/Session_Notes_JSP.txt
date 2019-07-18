@@ -1,0 +1,170 @@
+====
+JSP:
+====
+JSP ==> Java Server Pages
+
+WEB-INF:
+
+insert.jsp
+				1) Transalation Phase
+						
+						jsp page will be converted
+							back to servlet by the tomcat container
+							
+				2) Request Processing Phase
+							JSP Life Cycle
+									jspInit();
+									jspDestroy();
+						_jspService(HttpServletRequest request,HttpServletResponse response);
+
+>> servlet-api.jar
+>> jsp-api.jar
+
+Interfaces:
+
+javax.servlet.jsp
+	
+	JspPage Interface ====> jspInit(), jspDestroy()
+
+	HttpJspPage Interface===> _jspService(request,response)
+	
+							JSP Components
+								||
+								||
+								||
+		======================================================================================
+			||					||								||				>> JSTL
+			||					||								||				>> Expression Languge 
+		JSP Directives			JSP Scripting Elements			JSP Actions
+			>> page					>>JSP Declaratives				>> Standard Actions
+			>> include				>> JSP scriptlets				>> Custom Actions
+			>> taglib				>> JSP expressions				
+									>> JSP comments					
+			
+JSP Implicit Objects:
+=====================
+	9 implicit Objects
+	
+	1) request			4) page			7) config
+	
+	2) response			5) session		8) pageContext
+	
+	3) out				6) application	9) exception
+	
+JSP Scopes:
+===========
+	4 Scopes					Servlet Scopes
+	
+	1) page					===> ServletConfig
+	
+	2) request				===> HttpServletRequest
+	
+	3) session				===> HttpSession
+	
+	4) application			===> ServletContext
+
+
+>> java.lang.*
+>> javax.servlet.*
+>> javax.servlet.http.*
+
+
+Note: These three packaages we can use directly without importing the pacakges
+ 
+      What are all the concepts we used in Servlets we can use in jsp also with the same syntax's.
+
+
+Syntax:
+
+
+	Scripting Elements:
+
+	>> JSP Declartion:
+
+		<%! // Declaring Varaibles
+		    // Declaring and Defining User Defined Methods
+	
+		    // Over ridding of jspInit() and jspDestroy()
+		%>
+	Note: 
+
+	>> JSP Scriptlet
+
+		<%
+			// Here we are writing the Business Logic
+		%>
+
+	>> JSP Expression
+
+		<%= expression %>
+
+		 If we want to print the expression or 
+	varaible value outside of scriptlet scope
+
+	>> JSP Comments.
+
+======================================================================================================================================
+
+JSP Actions: 	>> Standard Actions
+	
+				>> Custom Actions
+======================================================================================================================================
+
+Jsp Standard Actions:
+
+	1) <jsp:useBean>
+		
+		<jsp:setProperty>
+		<jsp:getProperty>
+
+	2) <jsp:include>
+	   <jsp:forward>
+			<jsp:param>
+
+	3) <jsp:declaration>   </jsp:declaration>
+
+	   <jsp:scriptlet>	</jsp:scriptlet>	
+
+	   <jsp:expression>	</jsp:expression>
+
+	
+	
+			Depricated
+	4) <jsp:plugIn>		
+
+	   <jsp:params>
+	
+	   <jsp:fallBack>
+
+
+Syntax:
+
+	<jsp:useBean>
+
+class
+
+type
+
+id
+
+scope
+
+<jsp:useBean 	id="bean"  
+ class="com.beans.EmployeeBean" type="com.beans.EmployeeBean" scope="session" /> 
+
+<jsp:setProperty name="bean" property="empName" />
+
+
+<jsp:setProperty name="bean" property="*" />
+
+<jsp:getProperty name="bean" property="empNumber" />
+
+
+
+
+
+
+
+
+
+

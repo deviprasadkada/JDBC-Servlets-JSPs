@@ -1,0 +1,25 @@
+Java Applets
+--------------
+
+Client side web application
+- Used for Client Web UI
+- Used for Multimedia applications (threads)
+
+java.applet.Applet
+	- init()
+	- start()
+	- paint()
+	- stop()
+	- destroy()
+
+
+
+
+	
+
+
+
+
+
+
+

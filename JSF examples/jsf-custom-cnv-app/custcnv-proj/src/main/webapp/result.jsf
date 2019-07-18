@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head></h:head>
+        <h:body>
+            <h1>Custom converter in JSF 2.0</h1>
+			
+	  <h:panelGrid columns="2">
+			
+		Bookmark URL :  
+		<h:outputText value="#{userBean.bookmarkURL}" />
+				
+	  </h:panelGrid>
+        </h:body>
+    </html>
+</f:view>

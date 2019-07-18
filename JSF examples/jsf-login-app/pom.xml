@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>jsf-login-app</groupId>
+  <artifactId>jsf-login-app</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+  <modules>
+    <module>jsf-login-proj</module>
+  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>jsf-login-app</groupId>
+      <artifactId>jsf-login-proj</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>jsf-login-app</groupId>
+      <artifactId>jsf-login-proj</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>war</type>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,85 @@
+Web Technologies
+-------------------------
+
+
+sample web app
+	--webContent
+		--.html
+		--.jsp
+		-- css  
+		--script folder (js)
+		--images (png, jpeg)
+		--web Inf (web.xml, tld,properties,class folders, lib folder{.jar})
+		
+	
+	--src (source packages, .* java )
+		--source packages
+			--* java	(POJO, COntrollers, Service, DAO, Servlets)
+		--.xml
+		--properties, json, txt
+	--pom.xml
+	
+	
+	
+	Client																	
+		--HTML5
+		--CSS3
+		--JavaScript
+		--JQuery
+		--AngularJS
+		--ReactJs
+		--ExtJs
+		--Vue JS
+		--EMber JS
+		--Backbone JS
+		
+	Server	
+		--Servlets
+		--JSP
+		--NodeJS
+		--EJB
+		--RMI
+		--socket Programming
+		-JMS
+		
+	Servlets
+		A server side program which accepts HTTP req friim the browser, processes on the server side and sends back res to 
+		browser only in the form of Dynamic HTML web page
+		
+		javax.servlet
+				--servlert
+				--servletRequest
+				--servletResponse
+				--ServletContext
+				--ServletConfig
+				
+		javax.servlet.http
+				--HttpServlet
+				--HttpServletRequest
+				--HttpServletResponse
+				--HttpSession
+				--Cookie
+				
+		Web Container
+				--Web server
+					-->Tomcat
+					-->JavaWebServer
+					-->Jetty
+				--Application Server
+					-->Glassfish
+					-->JBoss
+					-->WebSphere
+					-->WebLogic
+					-->Orcale Enterprise Server
+					
+		servet life cycel
+				
+		Java Applets
+		----------------
+		Client side web app
+		used for client web ui
+		used for multi media app(threads)
+		
+		java.applet
+		--
+		
